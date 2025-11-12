@@ -1,23 +1,25 @@
-1.1 create project, no need if once project is created
+1. create project, no need if once project is created
 composer create-project laravel/laravel pets-vet
 
-1.2 pull project from github
-git pull 
+2. Clone project from github
+git clone https://github.com/Samius-Sazin/petsvet-laravel.git 
 
-2. go to project
-for windows
-cd .\pets-vet\
+3. Open project in editor(VS Code)
 
-3. run the project
+4. run the project
 composer artisan serve
-Server running on [http://127.0.0.1:8000].
+Server running on [http://127.0.0.1:8000]. // something like that
 
-4. download packages
+5. download packages
 npm install
 
-5. npm run dev
+6. npm run dev
   ➜  Local:   http://localhost:5173/
   ➜  APP_URL: http://localhost
+
+7. Database
+    php artisan migrate 
+    php artisan migrate --seed
 
 
 

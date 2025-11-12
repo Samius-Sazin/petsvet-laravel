@@ -1,6 +1,8 @@
 <?php
 
 return [
+    // font awsome kit
+    'font_awesome_kit' => env('FONT_AWESOME_KIT', ''),
 
     /*
     |--------------------------------------------------------------------------
