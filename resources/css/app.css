@@ -17,4 +17,5 @@ body {
     padding: 0;
 }
 
-@import './sabuj.css';
+@import './layout.css';
+@import './about.css';
