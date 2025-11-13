@@ -20,7 +20,7 @@
                 <li class="nav-item"><a class="nav-link {{ request()->routeIs('products') ? 'active fw-bold' : '' }}"
                         href="{{ route('products') }}">Products</a></li>
                 <li class="nav-item"><a class="nav-link {{ request()->routeIs('blog') ? 'active fw-bold' : '' }}"
-                        href="{{ route('blog') }}">Blogs</a></li>
+                        href="{{ route('blogs') }}">Blogs</a></li>
                 <li class="nav-item"><a class="nav-link {{ request()->routeIs('qna') ? 'active fw-bold' : '' }}"
                         href="{{ route('qna') }}">Q&A</a></li>
                 <li class="nav-item"><a class="nav-link {{ request()->routeIs('community') ? 'active fw-bold' : '' }}"

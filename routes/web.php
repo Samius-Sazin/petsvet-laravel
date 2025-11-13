@@ -10,9 +10,9 @@ Route::get('/about', function () {
     return view('pages.about');
 })->name('about');
 
-Route::get('/blog', function () {
-    return view('pages.blog');
-})->name('blog');
+Route::get('/blogs', function () {
+    return view('pages.blogs');
+})->name('blogs');
 
 Route::get('/community', function () {
     return view('pages.community');
@@ -33,3 +33,7 @@ Route::get('/qna', function () {
 Route::get('/profile', function () {
     return view('pages.profile');
 })->name('profile');
+
+Route::get('/consultancy', function () {
+    return view('pages.consultancy');
+})->name('consultancy');

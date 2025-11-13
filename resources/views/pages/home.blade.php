@@ -1,9 +1,13 @@
 @extends('main')
 
 @section('content')
-<div class="container text-center my-5">
-    <h1 class="display-4">Home Page</h1>
-    <p class="lead">This is a dummy home page for route checking.</p>
-    <a href="{{ route('home') }}" class="btn btn-primary mt-3">Refresh Page</a>
-</div>
+    @include('components.heroSection')
+
+    @include('components.serviceArea')
+
+    @include('components.trendingItems')
+
+    @include('components.forYouItems')
+
+    @include('components.faq')
 @endsection
