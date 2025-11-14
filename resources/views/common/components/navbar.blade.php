@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <!-- Left: Logo + Site Name -->
         <a class="navbar-brand d-flex align-items-center" href="{{ route('home') }}">
-            <img src="/images/logo.png" alt="Logo" width="60" height="60" class="me-2">
+            <img src="/images/logo_black.png" alt="Logo" width="60" height="60" class="me-2">
             <span class="fw-bold">PetsVet</span>
         </a>
 

@@ -43,13 +43,11 @@
             </div>
 
             {{-- Buttons overlay --}}
-            <button class="carousel-control-prev" type="button" data-bs-target="#forYouCarousel"
-                data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#forYouCarousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon btn-custom" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#forYouCarousel"
-                data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#forYouCarousel" data-bs-slide="next">
                 <span class="carousel-control-next-icon btn-custom" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
@@ -95,12 +93,15 @@
 </style>
 
 <script>
-    const carouselElement = document.querySelector('#forYouCarousel');
-    if (carouselElement) {
-        new bootstrap.Carousel(carouselElement, {
-            interval: 3000,
-            ride: 'carousel',
-            pause: 'hover',
-        });
-    }
+    document.addEventListener('DOMContentLoaded', function() {
+        const carouselElement = document.querySelector('#forYouCarousel');
+
+        if (carouselElement) {
+            new bootstrap.Carousel(carouselElement, {
+                interval: 3000,
+                ride: 'carousel',
+                pause: 'hover',
+            });
+        }
+    });
 </script>

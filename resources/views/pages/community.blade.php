@@ -1,5 +1,7 @@
 @extends('main')
 
+@section('title', '| Community')
+
 @section('content')
 <div class="container text-center my-5">
     <h1 class="display-4">Community Page</h1>

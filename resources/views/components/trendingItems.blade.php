@@ -93,10 +93,14 @@
 </style>
 
 <script>
-    const carouselElement = document.querySelector('#trendingCarousel');
-    const carousel = new bootstrap.Carousel(carouselElement, {
-        interval: 3000,
-        ride: 'carousel',
-        pause: 'hover',
+    document.addEventListener('DOMContentLoaded', function() {
+        const carouselElement = document.querySelector('#trendingCarousel');
+        if (carouselElement) {
+            const carousel = new bootstrap.Carousel(carouselElement, {
+                interval: 3000,
+                ride: 'carousel',
+                pause: 'hover',
+            });
+        }
     });
 </script>

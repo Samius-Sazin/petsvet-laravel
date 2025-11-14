@@ -1,5 +1,7 @@
 @extends('main')
 
+@section('title', '| Consultancy')
+
 @section('content')
     @php
         $whatsapp = [
