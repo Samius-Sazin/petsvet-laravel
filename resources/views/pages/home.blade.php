@@ -11,5 +11,7 @@
 
     @include('components.forYouItems')
 
+    @include('components.latestArticles')
+
     @include('components.faq')
 @endsection

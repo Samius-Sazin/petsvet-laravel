@@ -16,7 +16,7 @@
 @endphp
 
 <div class="container my-5">
-    <h1 class="text-center fw-bold mb-5 text-primary">
+    <h1 class="text-center fw-bold mb-5 text-dark">
         Trending Items
     </h1>
 

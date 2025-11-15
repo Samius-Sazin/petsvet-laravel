@@ -3,7 +3,7 @@ $faqs = include resource_path('views/data/faqs.php');
 @endphp
 
 <div class="container my-5">
-    <h1 class="text-center fw-bold mb-5 text-primary">
+    <h1 class="text-center fw-bold mb-5 text-dark">
         Frequently Asked Questions
     </h1>
 
