@@ -10,7 +10,9 @@
 @endphp
 
 <div class="card h-100 shadow-sm border-0">
-    <img src="{{ $image }}" class="card-img-top" alt="{{ $product['title'] ?? 'Product' }}">
+    <div class="img-placeholder">
+        <img src="{{ $image }}" class="card-img-top" alt="{{ $product['title'] ?? 'Product' }}">
+    </div>
     <div class="card-body d-flex flex-column">
         <h5 class="card-title">{{ $product['title'] ?? 'Product' }}</h5>
 
@@ -28,3 +30,26 @@
         </a>
     </div>
 </div>
+
+<style>
+    .img-placeholder {
+        width: 100%;
+        height: 220px;
+        background-color: #f0f0f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .img-placeholder .card-img-top {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform .2s ease-in-out;
+    }
+
+    .card:hover .img-placeholder .card-img-top {
+        transform: scale(1.08);
+    }
+</style>
