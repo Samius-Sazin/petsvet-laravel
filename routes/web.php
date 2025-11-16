@@ -7,7 +7,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/about', function () {
-    return view('pages.about');
+    return view('pages.about-page');
 })->name('about');
 
 Route::get('/blogs', function () {
