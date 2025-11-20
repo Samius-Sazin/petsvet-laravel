@@ -11,7 +11,7 @@ return [
         'images' => [
             'dummyProducts/cat food 1.jpg',
             'dummyProducts/cat food 2.jpg',
-            'dummyProducts/cat food 3.jpg',
+            'dummyProducts/cat food 3.jpeg',
         ],
         'rating' => 5,
         'reviews' => [],
@@ -28,7 +28,7 @@ return [
         'images' => [
             'dummyProducts/cat food 1.jpg',
             'dummyProducts/cat food 2.jpg',
-            'dummyProducts/cat food 3.jpg',
+            'dummyProducts/cat food 3.jpeg',
         ],
         'rating' => 4.5,
         'reviews' => [],
@@ -145,7 +145,7 @@ return [
         'category' => 'Accessories',
         'images' => [
             'dummyProducts/cat food 2.jpg',
-            'dummyProducts/cat food 3.jpg',
+            'dummyProducts/cat food 3.jpeg',
         ],
         'rating' => 4.5,
         'reviews' => [],

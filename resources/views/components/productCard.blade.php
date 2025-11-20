@@ -25,7 +25,7 @@
             <p class="card-text text-muted mb-2">${{ $product['price'] }}</p>
         @endif
 
-        <a href="#" class="btn btn-primary mt-auto">
+        <a href="{{ route('product.details', $product['_id']) }}" class="btn btn-primary mt-auto">
             View Product
         </a>
     </div>
