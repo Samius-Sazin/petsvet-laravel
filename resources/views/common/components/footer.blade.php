@@ -7,7 +7,9 @@
             <div class="col-lg-7">
                 <h1 class="fw-bold text-decoration-underline fs-3">PetsVet</h1>
                 <p class="mt-3 fs-5">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Praesentium harum ratione qui provident tenetur voluptate assumenda corporis repudiandae neque? Exercitationem dolore eius voluptatem distinctio sapiente quaerat harum repellat earum perferendis, natus tenetur quibusdam aperiam molestiae blanditiis quis, accusamus dolorem officiis?
+                    At PetsVet, we are dedicated to providing the best care for your beloved pets. Our team of
+                    experienced professionals is here to ensure that your furry friends receive the attention and
+                    treatment they deserve. Join us in our mission to promote pet health and happiness!
                 </p>
                 <div class="d-flex gap-3 mt-3">
                     <a href="#" class="text-dark fs-3"><i class="fab fa-facebook-f"></i></a>
@@ -18,7 +20,7 @@
 
             <!-- 2nd Part: Useful Links & Contact Info -->
             <div class="col-lg-5 d-flex justify-content-lg-between flex-wrap">
-                
+
                 <!-- Useful Links -->
                 <div class="mb-3">
                     <h5 class="text-decoration-underline fs-4">Useful Links</h5>
@@ -29,8 +31,8 @@
                             </a>
                         </li>
                         <li class="mb-2">
-                            <a href="/blogs" class="text-dark d-flex align-items-center text-decoration-none">
-                                <i class="fas fa-newspaper me-2"></i> Blogs
+                            <a href="/articles" class="text-dark d-flex align-items-center text-decoration-none">
+                                <i class="fas fa-newspaper me-2"></i> Articles
                             </a>
                         </li>
                         <li class="mb-2">
@@ -39,12 +41,13 @@
                             </a>
                         </li>
                         <li class="mb-2">
-                            <a href="/help-and-support" class="text-dark d-flex align-items-center text-decoration-none">
+                            <a href="/consultancy" class="text-dark d-flex align-items-center text-decoration-none">
                                 <i class="fas fa-hands-helping me-2"></i> Help & Support
                             </a>
                         </li>
                         <li class="mb-2">
-                            <a href="/privacy-policy" class="text-dark d-flex align-items-center text-decoration-none">
+                            <a href="{{ route('privacy.policy') }}"
+                                class="text-dark d-flex align-items-center text-decoration-none">
                                 <i class="fas fa-shield-alt me-2"></i> Privacy Policy
                             </a>
                         </li>
@@ -62,7 +65,7 @@
                             <i class="fas fa-envelope me-2"></i> petsVet.help@gmail.com
                         </li>
                         <li class="mb-2 d-flex align-items-center">
-                            <i class="fas fa-phone me-2"></i> 01700000074
+                            <i class="fas fa-phone me-2"></i> +8801700000074
                         </li>
                     </ul>
                 </div>

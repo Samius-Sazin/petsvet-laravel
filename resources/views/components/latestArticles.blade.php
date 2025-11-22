@@ -16,6 +16,6 @@
     </div>
 
     <div class="text-center mt-5">
-        <a href="#" class="btn btn-primary">Show more articles</a>
+        <a href="{{ route('articles') }}" class="btn btn-primary">Show more articles</a>
     </div>
 </div>

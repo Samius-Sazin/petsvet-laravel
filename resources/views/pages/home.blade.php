@@ -9,9 +9,10 @@
 
     @include('components.trendingItems')
 
-    @include('components.forYouItems')
-
+    
     @include('components.latestArticles')
-
+    
     @include('components.faq')
+    
+    @include('components.forYouItems')
 @endsection
