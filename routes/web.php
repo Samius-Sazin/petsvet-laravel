@@ -10,9 +10,9 @@ Route::get('/about', function () {
     return view('pages.about');
 })->name('about');
 
-Route::get('/blogs', function () {
-    return view('pages.blogs');
-})->name('blogs');
+Route::get('/articles', function () {
+    return view('pages.articles');
+})->name('articles');
 
 Route::get('/community', function () {
     return view('pages.community');
@@ -22,9 +22,6 @@ Route::get('/products', function () {
     return view('pages.products');
 })->name('products');
 
-//Route::get('/product-details', function () {
-   // return view('pages.productDetails');
-//})->name('product.details');
 
 Route::get('/qna', function () {
     return view('pages.qna');
@@ -40,8 +37,8 @@ Route::get('/consultancy', function () {
 
 Route::get('/products/{id}', function ($id) {
     // Load product data from your existing arrays
-    $forYou    = include resource_path('views/data/forYouProducts.php');
-    $trending  = include resource_path('views/data/trendingProducts.php');
+    $forYou = include resource_path('views/data/forYouProducts.php');
+    $trending = include resource_path('views/data/trendingProducts.php');
 
     // Merge both lists into one big collection
     $products = collect($forYou)->merge($trending);
@@ -57,3 +54,7 @@ Route::get('/products/{id}', function ($id) {
         'product' => $product,
     ]);
 })->name('product.details');
+
+Route::get('/privacy-and-policy', function () {
+    return view('pages.privacyAndPolicy');
+})->name('privacy.policy');

@@ -1,12 +1,10 @@
 @props(['product'])
 
 @php
-    // Fallback image if none provided
-    $image = $product['image'] ?? 'https://via.placeholder.com/200x150';
+    $image = isset($product['images'][0]) ? asset($product['images'][0]) : 'https://via.placeholder.com/200x150';
 
-    // Check if offer exists
     $hasOffer = isset($product['offer']) && $product['offer'] > 0;
-    $finalPrice = $hasOffer ? $product['price'] - ($product['price'] * $product['offer'] / 100) : $product['price'];
+    $finalPrice = $hasOffer ? $product['price'] - ($product['price'] * $product['offer']) / 100 : $product['price'];
 @endphp
 
 <div class="card h-100 shadow-sm border-0">
@@ -16,7 +14,7 @@
     <div class="card-body d-flex flex-column">
         <h5 class="card-title">{{ $product['title'] ?? 'Product' }}</h5>
 
-        @if($hasOffer)
+        @if ($hasOffer)
             <p class="card-text text-muted mb-2">
                 <span class="text-decoration-line-through">${{ $product['price'] }}</span>
                 <span class="fw-bold text-danger">${{ $finalPrice }}</span>

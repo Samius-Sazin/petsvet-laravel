@@ -7,10 +7,10 @@
 
 <div class="container-fluid px-0 mb-5">
     <div class="position-relative">
-        <img src="/images/blogs/hero.jpg" alt="Blogs Banner" 
+        <img src="/dummyProducts/hero.jpg" alt="Blogs Banner" 
              class="w-100" style="height: 400px; object-fit: cover;">
         <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background-color: rgba(0, 0, 0, 0.6);">
-            <h1 class="text-white display-3 fw-bold">Blogs</h1>
+            <h1 class="text-white display-3 fw-bold">Articles</h1>
         </div>
     </div>
 </div>
@@ -22,7 +22,7 @@
       
         <div class="col-lg-4 col-md-6">
             <div class="card h-100 border-0 ">
-                <img src="/images/blogs/blog-1.jpg" 
+                <img src="/dummyProducts/blog-1.jpg" 
                      class="card-img-top" alt="Blog Post" style="height: 250px; object-fit: cover;">
                 <div class="card-body">
                     <p class="text-primary small mb-2 fw-semibold">Pet Health</p>
@@ -44,7 +44,7 @@
 
         <div class="col-lg-4 col-md-6">
             <div class="card h-100 border-0 ">
-                <img src="/images/blogs/blog-2.jpg" 
+                <img src="/dummyProducts/blog-2.jpg" 
                      class="card-img-top" alt="Blog Post" style="height: 250px; object-fit: cover;">
                 <div class="card-body">
                     <p class="text-primary small mb-2 fw-semibold">Pet Health</p>
@@ -67,7 +67,7 @@
       
         <div class="col-lg-4 col-md-6">
             <div class="card h-100 border-0 ">
-                <img src="/images/blogs/blog-3.jpg" 
+                <img src="/dummyProducts/blog-3.jpg" 
                      class="card-img-top" alt="Blog Post" style="height: 250px; object-fit: cover;">
                 <div class="card-body">
                     <p class="text-primary small mb-2 fw-semibold">Pet Health</p>
@@ -89,7 +89,7 @@
 
         <div class="col-lg-4 col-md-6">
             <div class="card h-100 border-0 ">
-                <img src="/images/blogs/blog-4.jpg" 
+                <img src="/dummyProducts/blog-4.jpg" 
                      class="card-img-top" alt="Blog Post" style="height: 250px; object-fit: cover;">
                 <div class="card-body">
                     <p class="text-primary small mb-2 fw-semibold">Pet Health</p>
@@ -112,7 +112,7 @@
        
         <div class="col-lg-4 col-md-6">
             <div class="card h-100 border-0 ">
-                <img src="/images/blogs/blog-5.jpg" 
+                <img src="/dummyProducts/blog-5.jpg" 
                      class="card-img-top" alt="Blog Post" style="height: 250px; object-fit: cover;">
                 <div class="card-body">
                     <p class="text-primary small mb-2 fw-semibold">Pet Health</p>
@@ -135,7 +135,7 @@
      
         <div class="col-lg-4 col-md-6">
             <div class="card h-100 border-0 ">
-                <img src="/images/blogs/blog-6.jpg" 
+                <img src="/dummyProducts/blog-6.jpg" 
                      class="card-img-top" alt="Blog Post" style="height: 250px; object-fit: cover;">
                 <div class="card-body">
                     <p class="text-primary small mb-2 fw-semibold">Pet Health</p>
@@ -157,7 +157,7 @@
 
         <div class="col-lg-4 col-md-6">
             <div class="card h-100 border-0 ">
-                <img src="/images/blogs/blog-7.jpg" 
+                <img src="/dummyProducts/blog-7.jpg" 
                      class="card-img-top" alt="Blog Post" style="height: 250px; object-fit: cover;">
                 <div class="card-body">
                     <p class="text-primary small mb-2 fw-semibold">Pet Health</p>
@@ -179,7 +179,7 @@
 
         <div class="col-lg-4 col-md-6">
             <div class="card h-100 border-0 ">
-                <img src="/images/blogs/blog-8.jpg" 
+                <img src="/dummyProducts/blog-8.jpg" 
                      class="card-img-top" alt="Blog Post" style="height: 250px; object-fit: cover;">
                 <div class="card-body">
                     <p class="text-primary small mb-2 fw-semibold">Pet Health</p>
@@ -201,7 +201,7 @@
 
         <div class="col-lg-4 col-md-6">
             <div class="card h-100 border-0 ">
-                <img src="/images/blogs/blog-9.jpg" 
+                <img src="/dummyProducts/blog-9.jpg" 
                      class="card-img-top" alt="Blog Post" style="height: 250px; object-fit: cover;">
                 <div class="card-body">
                     <p class="text-primary small mb-2 fw-semibold">Pet Health</p>

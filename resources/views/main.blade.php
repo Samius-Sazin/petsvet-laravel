@@ -23,7 +23,7 @@
 <body>
     @include('common.components.navbar')
 
-    <div style="margin-bottom: 100px;"></div>
+    <div style="margin-bottom: 95px;"></div>
 
     <main>
         @yield('content')
