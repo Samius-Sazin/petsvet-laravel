@@ -1,5 +1,5 @@
 @extends('main')
-
+@section('title'.'| Product Details')
 @section('title', $product['title'] ?? 'Product Details')
 
 @section('content')
