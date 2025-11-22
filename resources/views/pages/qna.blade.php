@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', 'Q&A')
+@section('title', '| QNA')
 
 @section('content')
 <style>
