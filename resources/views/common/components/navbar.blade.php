@@ -45,7 +45,7 @@
                             <a href="#" class="btn btn-sm btn-outline-primary">
                                 <i class="fas fa-edit me-2"></i> Edit Profile
                             </a>
-                            <a href="#" class="btn btn-sm btn-outline-primary">
+                            <a href="{{ route('consultancy') }}" class="btn btn-sm btn-outline-primary">
                                 <i class="fas fa-question-circle me-2"></i> Help
                             </a>
                         </div>
@@ -91,7 +91,8 @@
 
                     <hr class="dropdown-divider my-3">
 
-                    <a class="dropdown-item d-flex align-items-center" href="#">
+                    <a class="dropdown-item d-flex align-items-center" 
+                    href="{{ route('consultancy') }}">
                         <i class="fas fa-question-circle me-2 text-muted"></i> Help
                     </a>
                 </div>
