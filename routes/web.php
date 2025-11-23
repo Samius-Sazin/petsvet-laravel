@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\FirebaseController;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('pages.home');
@@ -58,3 +60,10 @@ Route::get('/products/{id}', function ($id) {
 Route::get('/privacy-and-policy', function () {
     return view('pages.privacyAndPolicy');
 })->name('privacy.policy');
+
+Route::post('/auth/firebase-login', [FirebaseController::class, 'login']);
+
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/');
+})->name('logout');

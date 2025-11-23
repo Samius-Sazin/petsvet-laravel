@@ -175,3 +175,8 @@ petsvet-laravel/
 * Ensure Apache and MySQL/XMPP are running before starting the server.
 * Always run `composer install` and `npm install` after cloning the project.
 * Use `npm run dev` for frontend assets hot reload.
+
+Use User value anywhere
+{{ Auth::user()->name }}
+{{ Auth::user()->email }}
+<img src="{{ Auth::user()->photo }}" alt="Profile">
