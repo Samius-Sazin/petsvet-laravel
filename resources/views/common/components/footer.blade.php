@@ -1,5 +1,5 @@
 <!-- Footer Start -->
-<footer class="bg-primary text-dark py-5">
+<footer class="text-dark py-5" style="background-color: rgba(var(--bs-primary-rgb), 0.75) !important;">
     <div class="container">
         <div class="row gy-4 gx-lg-5">
 
