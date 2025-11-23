@@ -39,15 +39,17 @@
                     <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle"
                         id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="profile" width="35"
-                            height="35" class="rounded-circle me-1">
+                            height="35" class="rounded-circle me-1" style="cursor: pointer;">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="profileDropdown">
-                        <li><a class="dropdown-item" href="{{ route('profile') }}">Profile</a></li>
+                        <li><a class="dropdown-item" href="{{ route('profile') }}">View Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Help</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <form method="POST" action="{{ route('logout') }}">
+                            <form method="POST" action="/logout">
                                 @csrf
                                 <button type="submit" class="dropdown-item text-danger">Logout</button>
                             </form>
@@ -55,11 +57,21 @@
                     </ul>
                 </div>
             @else
-                <!-- Right: Profile Icon -->
-                <div class="navbar-right">
-                    <i class="fas fa-user-circle profile-icon fa-2xl"></i>
+                <!-- Login/Signup Dropdown -->
+                <div class="dropdown navbar-right">
+                    <a href="#" class="text-decoration-none dropdown-toggle" id="loginDropdown"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user-circle profile-icon fa-2xl" style="cursor: pointer;"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="loginDropdown">
+                        <li><a class="dropdown-item" href="/login">Login</a></li>
+                        <li><a class="dropdown-item" href="/register">Signup</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Help</a></li>
+                    </ul>
                 </div>
-
             @endauth
         </div>
     </div>
