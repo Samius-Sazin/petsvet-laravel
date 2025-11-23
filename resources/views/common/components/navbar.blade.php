@@ -62,48 +62,48 @@
                 </div>
             @else
                 <!-- Login/Signup Dropdown -->
-                <div class="dropdown"></div>
-                <a href="#" class="text-dark d-flex align-items-center text-decoration-none dropdown-toggle"
-                    id="loginDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="gap: 6px;">
+                <div class="dropdown">
+                    <a href="#" class="text-dark d-flex align-items-center text-decoration-none dropdown-toggle"
+                        id="loginDropdown" data-bs-toggle="dropdown" aria-expanded="false"
+                        style="gap: 6px; font-size: 1.1rem;">
 
-                    <i class="fa-solid fa-user fs-3 text-dark"></i>
-                </a>
-
-                <div class="dropdown-menu dropdown-menu-end shadow rounded-3 p-3" aria-labelledby="loginDropdown"
-                    style="min-width:220px;">
-                    <div class="d-flex flex-column align-items-center mb-2">
-                        <div class="me-2">
-                            <img src="/images/logo_black.png" alt="logo" width="50" height="50">
-                        </div>
-                        <div>
-                            <div class="fw-bold text-nowrap">Welcome to PetsVet</div>
-                        </div>
-                    </div>
-
-                    <div class="d-grid gap-2">
-                        <a href="/login" class="btn btn-sm btn-outline-primary">
-                            <i class="fas fa-sign-in-alt me-2"></i> Login
-                        </a>
-                        <a href="/register" class="btn btn-sm btn-primary">
-                            <i class="fas fa-user-plus me-2"></i> Signup
-                        </a>
-                    </div>
-
-                    <hr class="dropdown-divider my-3">
-
-                    <a class="dropdown-item d-flex align-items-center" 
-                    href="{{ route('consultancy') }}">
-                        <i class="fas fa-question-circle me-2 text-muted"></i> Help
+                        <i class="fa-solid fa-user fs-3 text-dark"></i>
                     </a>
-                </div>
-            </div>
-        @endauth
 
-        <!-- Toggler for mobile -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
-            aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
+                    <div class="dropdown-menu dropdown-menu-end shadow rounded-3 p-3" aria-labelledby="loginDropdown"
+                        style="min-width: 280px; font-size: 1rem;">
+                        <div class="d-flex flex-column align-items-center mb-2">
+                            <div class="me-2">
+                                <img src="/images/logo_black.png" alt="logo" width="50" height="50">
+                            </div>
+                            <div>
+                                <div class="fw-bold text-nowrap" style="font-size: 1.1rem;">Welcome to PetsVet</div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <a href="#" class="btn btn-sm btn-outline-primary"
+                                style="font-size: 1rem; padding: 0.5rem 1rem;">
+                                <i class="fab fa-google me-2"></i> Login with Google
+                            </a>
+                        </div>
+
+                        <hr class="dropdown-divider my-3">
+
+                        <a class="dropdown-item d-flex align-items-center" href="{{ route('consultancy') }}"
+                            style="font-size: 1rem;">
+                            <i class="fas fa-question-circle me-2 text-muted"></i> Help
+                        </a>
+                    </div>
+                </div>
+
+            @endauth
+
+            <!-- Toggler for mobile -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
     </div>
 </nav>
