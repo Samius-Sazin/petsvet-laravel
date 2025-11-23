@@ -1,3 +1,16 @@
+@auth
+    <script>
+        const userData = {
+            name: "{{ Auth::user()->name }}",
+            email: "{{ Auth::user()->email }}",
+            photo: "{{ Auth::user()?->photo ?? 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png' }}"
+        };
+
+        console.log("Authenticated User Data:", userData);
+    </script>
+@endauth
+
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm fixed-top px-5">
     <div class="container-fluid">
         <!-- Left: Logo + Site Name -->
@@ -32,13 +45,19 @@
                 <div class="dropdown">
                     <a href="#" class="text-dark d-flex align-items-center text-decoration-none dropdown-toggle"
                         id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="gap: 6px;">
-                        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="profile" width="35"
-                            height="35" class="rounded-circle">
+
+                        <img src="{{ Auth::user()?->photo ?? 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png' }}"
+                            alt="profile" width="50" height="50" class="rounded-circle"
+                            onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'">
+
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-end shadow rounded-3 p-3" aria-labelledby="profileDropdown"
                         style="min-width: 220px;">
                         <div class="d-grid gap-2 mb-2">
+                            <div class="fw-bold text-nowrap text-center" style="font-size: 1.1rem;">
+                                {{ Auth::user()->name }}</div>
+
                             <a href="{{ route('profile') }}" class="btn btn-sm btn-outline-primary">
                                 <i class="fas fa-user me-2"></i> View Profile
                             </a>
@@ -52,9 +71,9 @@
 
                         <hr class="dropdown-divider my-2">
 
-                        <form method="POST" action="/logout">
+                        <form id="logoutForm" method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <button type="submit" class="btn btn-sm btn-outline-danger w-100">
+                            <button type="button" class="btn btn-sm btn-outline-danger w-100" onclick="logoutUser()">
                                 <i class="fas fa-sign-out-alt me-2"></i> Logout
                             </button>
                         </form>
@@ -82,10 +101,12 @@
                         </div>
 
                         <div class="d-grid gap-2">
-                            <a href="#" class="btn btn-sm btn-outline-primary"
-                                style="font-size: 1rem; padding: 0.5rem 1rem;">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-primary" id="googleLoginBtn"
+                                onclick="loginWithGoogle()">
                                 <i class="fab fa-google me-2"></i> Login with Google
                             </a>
+
+
                         </div>
 
                         <hr class="dropdown-divider my-3">
