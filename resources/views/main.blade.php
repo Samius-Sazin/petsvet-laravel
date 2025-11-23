@@ -41,12 +41,12 @@
 
     <script>
         const firebaseConfig = {
-            apiKey: "{{ env('FIREBASE_API_KEY') }}",
-            authDomain: "{{ env('FIREBASE_AUTH_DOMAIN') }}",
-            projectId: "{{ env('FIREBASE_PROJECT_ID') }}",
-            storageBucket: "{{ env('FIREBASE_STORAGE_BUCKET') }}",
-            messagingSenderId: "{{ env('FIREBASE_MESSAGING_SENDER_ID') }}",
-            appId: "{{ env('FIREBASE_APP_ID') }}"
+            apiKey: "{{ config('app.firebase.api_key') }}",
+            authDomain: "{{ config('app.firebase.auth_domain') }}",
+            projectId: "{{ config('app.firebase.project_id') }}",
+            storageBucket: "{{ config('app.firebase.storage_bucket') }}",
+            messagingSenderId: "{{ config('app.firebase.messaging_sender_id') }}",
+            appId: "{{ config('app.firebase.app_id') }}",
         };
 
         // Initialize Firebase

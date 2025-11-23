@@ -61,9 +61,6 @@
                             <a href="{{ route('profile') }}" class="btn btn-sm btn-outline-primary">
                                 <i class="fas fa-user me-2"></i> View Profile
                             </a>
-                            <a href="#" class="btn btn-sm btn-outline-primary">
-                                <i class="fas fa-edit me-2"></i> Edit Profile
-                            </a>
                             <a href="{{ route('consultancy') }}" class="btn btn-sm btn-outline-primary">
                                 <i class="fas fa-question-circle me-2"></i> Help
                             </a>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\FirebaseController;
 use Illuminate\Support\Facades\Auth;
@@ -28,10 +29,6 @@ Route::get('/products', function () {
 Route::get('/qna', function () {
     return view('pages.qna');
 })->name('qna');
-
-Route::get('/profile', function () {
-    return view('pages.profile');
-})->name('profile');
 
 Route::get('/consultancy', function () {
     return view('pages.consultancy');
@@ -67,3 +64,10 @@ Route::post('/logout', function () {
     Auth::logout();
     return redirect('/');
 })->name('logout');
+
+// Profile
+// Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+// Route::post('/profile/photo', [ProfileController::class, 'updatePhoto'])->name('profile.update.photo');
+Route::get('/profile', function () {
+    return view('profile.user');
+})->name('profile');
