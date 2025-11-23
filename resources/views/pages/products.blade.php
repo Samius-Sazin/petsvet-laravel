@@ -8,7 +8,6 @@
 @section('title', '| Products')
 
 @section('content')
-
     <!-- Banner Section -->
     <section class="w-100 position-relative"
         style="height: 320px; background: url('{{ $productPageBanner }}') center/cover no-repeat;">

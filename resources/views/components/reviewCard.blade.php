@@ -8,12 +8,12 @@
 <div class="card h-100 shadow border-0 p-3">
     <div class="d-flex align-items-center mb-3">
         {{-- Profile Image --}}
-        <div class="img-placeholder me-3">
+        <div class="review-img-wrapper me-3">
             <img src="{{ $image }}" class="card-img-top rounded-circle" alt="{{ $review['name'] ?? 'Reviewer' }}">
         </div>
 
         {{-- Name & Rating --}}
-        <div class="flex-grow-1">
+        <div class="grow">
             <h5 class="mb-1">{{ $review['name'] ?? 'Anonymous' }}</h5>
             <div>
                 @for ($i = 0; $i < 5; $i++)
@@ -32,12 +32,11 @@
 </div>
 
 <style>
-    .img-placeholder {
+    .review-img-wrapper {
         width: 80px;
         height: 80px;
         background-color: #f0f0f0;
         border-radius: 50%;
-        /* Make the placeholder circular */
         display: flex;
         align-items: center;
         justify-content: center;
@@ -45,7 +44,7 @@
     }
 
 
-    .img-placeholder .card-img-top {
+    .review-img-wrapper .card-img-top {
         width: 100%;
         height: 100%;
         object-fit: cover;

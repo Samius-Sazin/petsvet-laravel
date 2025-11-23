@@ -9,10 +9,14 @@
 
     @include('components.trendingItems')
 
-    
     @include('components.latestArticles')
-    
+    <div class="text-center mt-5">
+        <a href="{{ route('articles') }}" class="btn btn-primary">Show more articles</a>
+    </div>
+
+    @include('components.reviewsCarosel')
+
     @include('components.faq')
-    
+
     @include('components.forYouItems')
 @endsection
