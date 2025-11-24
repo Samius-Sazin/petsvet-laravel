@@ -108,7 +108,7 @@
         }
     </script>
 
-    // Toast Notification Script
+    // showNotification : Toast Notification Script
     <script>
         /**
          * Show a notification anywhere in the website.

@@ -1,11 +1,11 @@
-<!-- Modal HTML (single copy) -->
 <div class="modal fade" id="editProfileModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form method="POST" action="" enctype="multipart/form-data">
+
+            <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
- 
+
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h5 class="modal-title">Edit Profile</h5>

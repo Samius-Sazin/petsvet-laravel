@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\FirebaseController;
 use Illuminate\Support\Facades\Auth;
@@ -65,6 +66,15 @@ Route::post('/logout', function () {
     return redirect('/');
 })->name('logout');
 
-Route::get('/profile', function () {
-    return view('profile.profile');
-})->name('profile');
+Route::middleware(['auth'])->group(function () {
+
+    // Show profile
+    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+
+    // Update profile
+    Route::put('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
+
+    // update role
+    Route::put('/profile/update-role', [UserController::class, 'updateRole'])
+        ->middleware('can:isAdmin')->name('profile.updateRole');// only admin
+});

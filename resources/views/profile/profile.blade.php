@@ -14,6 +14,7 @@
         $email = $user->email ?? 'user@example.com';
         $location = $user->location ?? 'Not set';
         $bio = $user->bio ?? 'Tell us something about yourself!';
+        $role = $user->role ?? 1;
         $type = match ($user->role) {
             0 => 'Admin',
             1 => 'User',
@@ -75,6 +76,11 @@
         <div class="card shadow-sm border-0 p-4 mb-4">
             <h4 class="fw-bold mb-3 fs-2">About Me</h4>
             <p class="text-muted fs-4">{{ $bio }}</p>
+        </div>
+
+        {{-- change role --}}
+        <div>
+            <x-changeRole :role="$role" />
         </div>
 
         <!-- Stats Cards -->
