@@ -68,3 +68,17 @@ Route::post('/logout', function () {
     return redirect('/');
 })->name('logout');
 
+use app\Http\Controllers\qna\QnaQuestionController;
+use app\Http\Controllers\qna\QnaAnswerController;
+
+Route::prefix('qna')->name('qna.')->group(function () {
+    
+    Route::get('/', [QnaQuestionController::class, 'index'])->name('index');
+
+    Route::post('/ask', [QnaQuestionController::class, 'store'])->name('ask');
+
+    Route::get('/question/{id}', [QnaQuestionController::class, 'show'])->name('show');
+
+    Route::post('/answer', [QnaAnswerController::class, 'store'])->name('answer');
+
+});
