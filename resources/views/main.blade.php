@@ -35,10 +35,18 @@
 
     @include('common.components.footer')
 
+    <!-- Global Notification Container -->
+    <div id="notificationContainer"
+        style="position: fixed; top: 10px; right: 20px; z-index: 2000; display: flex; flex-direction: column; gap: 10px;">
+    </div>
+
+
+    // bootstrap script
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
     </script>
 
+    // Firebase Auth and Login/Logout Script
     <script>
         const firebaseConfig = {
             apiKey: "{{ config('app.firebase.api_key') }}",
@@ -100,6 +108,36 @@
         }
     </script>
 
+    // Toast Notification Script
+    <script>
+        /**
+         * Show a notification anywhere in the website.
+         * @param {string} message - The text to show
+         * @param {string} type - Bootstrap alert type: 'success', 'warning', 'danger', 'info'
+         * @param {number} duration - How long the notification stays (ms)
+         */
+        function showNotification(message, type = 'success', duration = 3000) {
+            const container = document.getElementById('notificationContainer');
+            if (!container) return;
+
+            // Create alert element
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type} alert-dismissible fade show fs-5`;
+            alert.role = 'alert';
+            alert.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    `;
+
+            // Add to container
+            container.appendChild(alert);
+
+            // Auto-remove after duration
+            setTimeout(() => {
+                bootstrap.Alert.getOrCreateInstance(alert).close();
+            }, duration);
+        }
+    </script>
 </body>
 
 </html>

@@ -6,15 +6,35 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property string|null $photo
+ * @property string|null $location
+ * @property string|null $bio
+ * @property int $role
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $updated_at
+ */
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
+
+    // Roles constants
+    public const ROLE_ADMIN = 0;
+    public const ROLE_USER = 1;
+    public const ROLE_VET = 2;
 
     protected $fillable = [
         'name',
         'email',
         'password',
-        'photo'   // ✅ MUST BE HERE
+        'photo',
+        'role',
+        'location',
+        'bio',
     ];
 
     protected $hidden = [
@@ -22,11 +42,26 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    protected function casts(): array
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'password' => 'hashed',
+        'role' => 'integer',
+    ];
+    
+    public function isAdmin(): bool
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->role === self::ROLE_ADMIN;
+    }
+
+    public function isUser(): bool
+    {
+        return $this->role === self::ROLE_USER;
+    }
+
+    public function isVet(): bool
+    {
+        return $this->role === self::ROLE_VET;
     }
 }

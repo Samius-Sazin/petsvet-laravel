@@ -65,9 +65,6 @@ Route::post('/logout', function () {
     return redirect('/');
 })->name('logout');
 
-// Profile
-// Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-// Route::post('/profile/photo', [ProfileController::class, 'updatePhoto'])->name('profile.update.photo');
 Route::get('/profile', function () {
-    return view('profile.user');
+    return view('profile.profile');
 })->name('profile');

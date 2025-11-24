@@ -13,14 +13,27 @@ class FirebaseController extends Controller
     {
         $data = $request->only('uid', 'name', 'email', 'photo');
 
-        $user = User::updateOrCreate(
-            ['email' => $data['email']],
-            [
+        // Check if user already exists
+        $user = User::where('email', $data['email'])->first();
+
+        if ($user) {
+            // Existing user: update only name & photo (NOT role)
+            $user->update([
                 'name' => $data['name'],
                 'photo' => $data['photo'],
-                'password' => bcrypt(uniqid())
-            ]
-        );
+            ]);
+        } else {
+            // New user: create with default role USER
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'photo' => $data['photo'],
+                'password' => bcrypt(uniqid()),
+                'role' => User::ROLE_USER,
+                'location' => null,
+                'bio' => null,
+            ]);
+        }
 
         Auth::login($user);
 
