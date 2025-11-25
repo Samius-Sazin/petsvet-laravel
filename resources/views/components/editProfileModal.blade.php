@@ -72,7 +72,6 @@
     </div>
 </div>
 
-<!-- Script -->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const form = document.querySelector('#editProfileModal form');
@@ -87,13 +86,27 @@
             photo: ''
         };
 
+        const photoInput = form.querySelector('input[name="photo"]');
+        const photoImg = form.querySelector('img');
+
+        // Preview image when selected
+        photoInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    photoImg.src = e.target.result; // update image preview
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
         form.addEventListener('submit', function(e) {
             e.preventDefault();
 
             const name = form.querySelector('input[name="name"]').value.trim();
             const location = form.querySelector('input[name="location"]').value.trim();
             const bio = form.querySelector('textarea[name="bio"]').value.trim();
-            const photoInput = form.querySelector('input[name="photo"]');
             const photoChanged = photoInput.files.length > 0;
 
             if (name === initialData.name &&

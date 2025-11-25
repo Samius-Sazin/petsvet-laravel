@@ -5,9 +5,6 @@
 @section('content')
     @php
         $user = auth()->user();
-        $totalPosts = 12;
-        $totalQna = 5;
-        $totalPurchases = 3;
 
         // Default values if something is null
         $name = $user->name ?? 'John Doe';
@@ -28,9 +25,8 @@
     </script>
 
     <div class="container my-5">
-
         <!-- Profile Header -->
-        <div class="card border-0 shadow-sm p-4 mb-4">
+        <div class="card border-0 shadow-sm p-4 mb-4 bg-light">
             <div class="d-flex flex-wrap align-items-center gap-4">
 
                 <!-- Profile Image -->
@@ -51,8 +47,8 @@
                     <div class="d-flex flex-wrap gap-3">
                         <p class="mb-0 fs-5"><i class="fa-solid fa-envelope text-secondary me-2"></i> {{ $email }}
                         </p>
-                        <p class="mb-0 fs-5"><i class="fa-solid fa-location-dot text-secondary me-2"></i>
-                            {{ $location }}</p>
+                        <p class="mb-0 fs-5"><i class="fa-solid fa-location-dot text-secondary me-2"></i>{{ $location }}
+                        </p>
                     </div>
 
                     <!-- Account Timestamps -->
@@ -73,7 +69,7 @@
         </div>
 
         <!-- Bio / About Section -->
-        <div class="card shadow-sm border-0 p-4 mb-4">
+        <div class="card shadow-sm border p-4 mb-4">
             <h4 class="fw-bold mb-3 fs-2">About Me</h4>
             <p class="text-muted fs-4">{{ $bio }}</p>
         </div>
@@ -83,55 +79,14 @@
             <x-changeRole :role="$role" />
         </div>
 
-        <!-- Stats Cards -->
-        <div class="row g-4 mb-4">
-            <div class="col-md-4">
-                <a href="#" class="text-decoration-none">
-                    <div class="card shadow-sm border p-3 text-center h-100 stats-card">
-                        <i class="fa-solid fa-pen-to-square fs-1 text-primary mb-2"></i>
-                        <h5 class="fw-bold">Total Posts</h5>
-                        <p class="text-muted fs-4">{{ $totalPosts }}</p>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-md-4">
-                <a href="#" class="text-decoration-none">
-                    <div class="card shadow-sm border p-3 text-center h-100 stats-card">
-                        <i class="fa-solid fa-circle-question fs-1 text-success mb-2"></i>
-                        <h5 class="fw-bold">Total QnA</h5>
-                        <p class="text-muted fs-4">{{ $totalQna }}</p>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-md-4">
-                <a href="#" class="text-decoration-none">
-                    <div class="card shadow-sm border p-3 text-center h-100 stats-card">
-                        <i class="fa-solid fa-cart-shopping fs-1 text-danger mb-2"></i>
-                        <h5 class="fw-bold">Products Bought</h5>
-                        <p class="text-muted fs-4">{{ $totalPurchases }}</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-
-        <!-- Recent Activity -->
-        <div class="card shadow-sm border-0 p-4 mb-4">
-            <h4 class="fw-bold mb-3 fs-2">Recent Activity</h4>
-            <ul class="list-group list-group-flush">
-                <li class="fs-4 list-group-item"><i class="fa-solid fa-pen-to-square text-primary me-2"></i> Posted a new
-                    blog on Pet Health</li>
-                <li class="fs-4 list-group-item"><i class="fa-solid fa-circle-question text-success me-2"></i> Asked a
-                    question about dog vaccination</li>
-                <li class="fs-4 list-group-item"><i class="fa-solid fa-cart-shopping text-danger me-2"></i> Purchased "Dog
-                    Leash"</li>
-            </ul>
+        <!-- Main Profile Contents -->
+        <div>
+            <x-profilePageMainContents :user="$user" :cards="$cards" :counts="$counts" />
         </div>
     </div>
 
     <!-- Edit Profile Modal (Separate Form) -->
-    @include('profile.editProfileModal')
+    <x-editProfileModal />
 
     <style>
         .stats-card {

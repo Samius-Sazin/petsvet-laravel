@@ -185,3 +185,41 @@ petsvet-laravel/
 - After running these command use this if any problem occurs
 `composer require laravel/socialite`
 
+
+## **PHP.ini Setup for File Uploads & Cloudinary SSL (Windows)**
+
+1. **Locate php.ini**
+
+```bash
+php --ini
+```
+
+* Look for **Loaded Configuration File** (e.g., `C:\php\php.ini`).
+
+2. **Open php.ini** in VS Code, Notepad++, or any editor.
+
+3. **Increase upload limits**:
+
+```ini
+upload_max_filesize = 10M
+post_max_size = 10M
+memory_limit = 256M
+```
+
+4. **Set cURL/OpenSSL certificate** (for Cloudinary SSL):
+
+```ini
+curl.cainfo = "C:\path\to\cacert.pem"
+openssl.cafile = "C:\path\to\cacert.pem"
+```
+
+* Download the certificate here: [https://curl.se/ca/cacert.pem](https://curl.se/ca/cacert.pem)
+
+5. **Save and restart server**:
+
+* `php artisan serve` → stop & start again
+* XAMPP/WAMP → restart Apache
+
+6. **Verify changes**:
+
+* Use `phpinfo()` or `php -i` to check:

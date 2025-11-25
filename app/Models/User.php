@@ -11,6 +11,7 @@ use Illuminate\Notifications\Notifiable;
  * @property string $name
  * @property string $email
  * @property string|null $photo
+ * @property string|null $photo_public_id
  * @property string|null $location
  * @property string|null $bio
  * @property int $role
@@ -32,6 +33,7 @@ class User extends Authenticatable
         'email',
         'password',
         'photo',
+        'photo_public_id',
         'role',
         'location',
         'bio',
@@ -48,6 +50,7 @@ class User extends Authenticatable
         'updated_at' => 'datetime',
         'password' => 'hashed',
         'role' => 'integer',
+        'photo_public_id' => 'string',
     ];
     
     public function isAdmin(): bool
