@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -22,10 +23,6 @@ Route::get('/community', function () {
     return view('pages.community');
 })->name('community');
 
-Route::get('/products', function () {
-    return view('pages.products');
-})->name('products');
-
 
 Route::get('/qna', function () {
     return view('pages.qna');
@@ -35,6 +32,10 @@ Route::get('/consultancy', function () {
     return view('pages.consultancy');
 })->name('consultancy');
 
+// products
+Route::get('/products', [ProductController::class, 'getAllProducts'])->name('products');
+
+// TODO: update product details
 Route::get('/products/{id}', function ($id) {
     // Load product data from your existing arrays
     $forYou = include resource_path('views/data/forYouProducts.php');
@@ -77,4 +78,9 @@ Route::middleware(['auth'])->group(function () {
     // update role
     Route::put('/profile/update-role', [UserController::class, 'updateRole'])
         ->middleware('can:isAdmin')->name('profile.updateRole');// only admin
+});
+
+Route::middleware(['auth', 'can:isAdmin'])->group(function () {
+    Route::post('/profile/products/add', [ProductController::class, 'store'])
+        ->name('products.add');
 });

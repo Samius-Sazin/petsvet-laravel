@@ -4,8 +4,9 @@
     <div class="card shadow-sm border p-4 mb-4 bg-light">
         <h4 class="fw-bold mb-3 fs-2 text-danger">Change User Role</h4>
 
-        @if (session('success'))
+        @if (session('update_user_role_success'))
             <script>
+                alert("user role changed successfully");
                 // showNotification('{{ session('success') }}', 'success');
             </script>
         @endif

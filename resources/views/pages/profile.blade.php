@@ -88,6 +88,9 @@
     <!-- Edit Profile Modal (Separate Form) -->
     <x-editProfileModal />
 
+    <!-- Edit Profile Modal (Separate Form) -->
+    <x-addProductModal />
+
     <style>
         .stats-card {
             transition: transform 0.2s, box-shadow 0.2s;

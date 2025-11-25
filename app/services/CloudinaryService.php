@@ -23,7 +23,7 @@ class CloudinaryService
     {
         $cloudFolder = "petsvet/{$folder}";
 
-        $publicId =  '/user_' . auth()->id() . '_' . time();
+        $publicId = '/user_' . auth()->id() . '_' . time();
 
         $result = $this->cloudinary->uploadApi()->upload(
             $file->getRealPath(),
@@ -39,10 +39,44 @@ class CloudinaryService
         ];
     }
 
-    public function deleteImage($publicId)
+    public function deleteUserProfileImage($publicId): void
     {
         if ($publicId) {
             $this->cloudinary->uploadApi()->destroy($publicId);
         }
     }
+
+    public function uploadProductImages($files, $productName, $folder = '/products'): array
+    {
+        $cloudFolder = "petsvet/{$folder}";
+        $uploadedImages = [];
+
+        // Ensure $files is an array
+        if (!\is_array($files)) {
+            $files = [$files];
+        }
+
+        foreach ($files as $file) {
+            // Clean product name to use in filename
+            $cleanName = preg_replace('/[^A-Za-z0-9_\-]/', '_', strtolower($productName));
+            $timestamp = time();
+            $publicId = "product_{$cleanName}_{$timestamp}";
+
+            $result = $this->cloudinary->uploadApi()->upload(
+                $file->getRealPath(),
+                [
+                    'folder' => $cloudFolder,
+                    'public_id' => $publicId,
+                ]
+            );
+
+            $uploadedImages[] = [
+                'url' => $result['secure_url'] ?? null,
+                'public_id' => $result['public_id'] ?? null,
+            ];
+        }
+
+        return $uploadedImages;
+    }
+
 }

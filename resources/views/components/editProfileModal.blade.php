@@ -2,6 +2,13 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
 
+            @if (session('update_profile_success'))
+                <script>
+                    alert("Profile updated successfully");
+                    // showNotification('{{ session('success') }}', 'success');
+                </script>
+            @endif
+
             <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')

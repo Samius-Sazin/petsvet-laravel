@@ -1,6 +1,4 @@
 @php
-    $products = require base_path('resources/views/data/products.php');
-    $reviews = require base_path('resources/views/data/reviews.php');
     $productPageBanner = asset('images/about-cat-1.png');
 @endphp
 
@@ -68,7 +66,7 @@
 
     <div style="margin: 100px 0;"></div>
 
-    @include('components.trendingItems')
+    {{-- @include('components.trendingItems') --}}
 
     <div style="margin: 100px 0;"></div>
 

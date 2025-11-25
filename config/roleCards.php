@@ -7,20 +7,20 @@ return [
     // ---------------------------------------------------------
     'admin' => [
         [
+            'key' => 'products',
+            'title' => 'All Products',
+            'description' => 'View and manage all purchased products.',
+            'icon' => 'fa-solid fa-cart-shopping',
+            'color' => 'success',
+            'route' => 'admin.products.index',
+        ],
+        [
             'key' => 'posts',
             'title' => 'All Posts',
             'description' => 'Manage or review all posts created by users.',
             'icon' => 'fa-solid fa-pen-to-square',
             'color' => 'primary',
             'route' => 'admin.posts.index',
-        ],
-        [
-            'key' => 'products',
-            'title' => 'All Products',
-            'description' => 'View and manage all purchased products.',
-            'icon' => 'fa-solid fa-cart-shopping',
-            'color' => 'danger',
-            'route' => 'admin.products.index',
         ],
         [
             'key' => 'qna',

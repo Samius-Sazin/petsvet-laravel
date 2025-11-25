@@ -55,9 +55,9 @@ class ProfileStatsService
         // }
         switch ($roleKey) {
             case 'admin':
+                $counts['products'] = 5;
                 $counts['posts'] = 10;
                 $counts['qna'] = 15;
-                $counts['products'] = 5;
                 $counts['articles'] = 8;
                 $counts['all_admins'] = User::where('role', 0)->count();
                 $counts['all_users'] = User::where('role', 1)->count();

@@ -1,33 +1,42 @@
 @props(['product'])
 
 @php
-    $image = isset($product['images'][0]) ? asset($product['images'][0]) : 'https://via.placeholder.com/200x150';
+    $image = isset($product->images[0]['url']) ? $product->images[0]['url'] : 'https://via.placeholder.com/200x150';
 
-    $hasOffer = isset($product['offer']) && $product['offer'] > 0;
+    $hasOffer = $product['offer'] > 0;
     $finalPrice = $hasOffer ? $product['price'] - ($product['price'] * $product['offer']) / 100 : $product['price'];
+    $id = $product->id;
 @endphp
+
+<script>
+    console.log(@json($product));
+</script>
+
+
 
 <div class="card h-100 shadow-sm border-0">
     <div class="img-placeholder">
         <img src="{{ $image }}" class="card-img-top" alt="{{ $product['title'] ?? 'Product' }}">
     </div>
+
     <div class="card-body d-flex flex-column">
-        <h5 class="card-title">{{ $product['title'] ?? 'Product' }}</h5>
+        <h5 class="card-title">{{ $product['title'] }}</h5>
 
         @if ($hasOffer)
             <p class="card-text text-muted mb-2">
-                <span class="text-decoration-line-through">${{ $product['price'] }}</span>
-                <span class="fw-bold text-danger">${{ $finalPrice }}</span>
+                <span class="text-decoration-line-through">${{ number_format($product['price'], 2) }}</span>
+                <span class="fw-bold text-danger">${{ number_format($finalPrice, 2) }}</span>
             </p>
         @else
-            <p class="card-text text-muted mb-2">${{ $product['price'] }}</p>
+            <p class="card-text text-muted mb-2">${{ number_format($product['price'], 2) }}</p>
         @endif
 
-        <a href="{{ route('product.details', $product['_id']) }}" class="btn btn-primary mt-auto">
+        <a href="{{ route('product.details', $id) }}" class="btn btn-primary mt-auto">
             View Product
         </a>
     </div>
 </div>
+
 
 <style>
     .img-placeholder {

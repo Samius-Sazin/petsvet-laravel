@@ -53,7 +53,7 @@ class UserController extends Controller
             // If old image exists → delete from Cloudinary
             if ($user->photo_public_id) {
                 try {
-                    $this->cloudinary->deleteImage($user->photo_public_id);
+                    $this->cloudinary->deleteUserProfileImage($user->photo_public_id);
                 } catch (\Exception $e) {
                     // Print the error if deletion fails
                     dd('Cloudinary delete error: ' . $e->getMessage());
@@ -83,7 +83,7 @@ class UserController extends Controller
             'bio' => $request->input('bio'),
         ]);
 
-        return back()->with('success', 'Profile updated successfully!');
+        return back()->with('update_profile_success', 'Profile updated successfully!');
     }
 
     public function updateRole(Request $request)
@@ -99,6 +99,6 @@ class UserController extends Controller
 
         $user->refresh();
 
-        return back()->with('success', 'User role updated!');
+        return back()->with('update_user_role_success', 'User role updated!');
     }
 }

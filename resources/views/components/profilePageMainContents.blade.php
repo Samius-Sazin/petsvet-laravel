@@ -29,6 +29,14 @@
                             <i class="fa-solid fa-arrow-right me-2"></i>
                             View {{ $card['title'] }}
                         </a>
+
+                        <!-- Add product button -->
+                        @if ($user->role === 0 && $card['key'] === 'products')
+                            <button type="button" class="ms-4 btn btn-outline-{{ $card['color'] }} btn-sm px-4 py-2 fs-5"
+                                data-bs-toggle="modal" data-bs-target="#addProductModal">
+                                <i class="fa-solid fa-pen me-1"></i> Add Product
+                            </button>
+                        @endif
                     </div>
 
                 </div>
