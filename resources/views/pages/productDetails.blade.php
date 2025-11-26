@@ -3,408 +3,213 @@
 @section('title', '| ' . ($product['title'] ?? 'Product Details'))
 
 @section('content')
-<style>
-    .product-page {
-        padding-top: 40px;
-        padding-bottom: 60px;
-    }
 
-    .breadcrumb {
-        font-size: 0.9rem;
-        background-color: transparent;
-        padding-left: 0;
-    }
+    @php
+        $placeholder = config('constants.placeholder_image');
+        $image = $product['images'][0]['url'] ?? $placeholder;
+        $images = $product['images'] ?? [];
+        $finalPrice =
+            isset($product['offer']) && $product['offer']
+                ? $product['price'] - $product['price'] * ($product['offer'] / 100)
+                : $product['price'];
 
-    .breadcrumb a {
-        text-decoration: none;
-        color: #6c757d;
-    }
+        $tags = is_array($product['tags']) ? $product['tags'] : json_decode($product['tags'], true);
+        $reviews = is_array($product['reviews']) ? $product['reviews'] : json_decode($product['reviews'], true);
+        $ratingCount = $reviews ? count($reviews) : 0;
+        $attributes = is_array($product['attributes'])
+            ? $product['attributes']
+            : json_decode($product['attributes'], true);
+    @endphp
 
-    .breadcrumb-item + .breadcrumb-item::before {
-        content: ">";
-    }
+    <div class="container py-4">
 
-    .product-main-card {
-        border: none;
-        border-radius: 16px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-        padding: 24px;
-        background-color: #ffffff;
-        margin-bottom: 40px;
-    }
+        {{-- Breadcrumb --}}
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb small">
+                <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-muted">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('products') }}" class="text-muted">Products</a></li>
+                <li class="breadcrumb-item active">{{ $product['title'] }}</li>
+            </ol>
+        </nav>
 
-    .product-thumbs img {
-        border-radius: 12px;
-        cursor: pointer;
-        transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s;
-        border: 2px solid transparent;
-    }
+        {{-- Product Card --}}
+        <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
+            <div class="row g-4">
 
-    .product-thumbs img:hover,
-    .product-thumbs img.active-thumb {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-        border-color: #0d6efd;
-    }
-
-    .product-main-image {
-        border-radius: 18px;
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-    }
-
-    .product-title {
-        font-weight: 700;
-        font-size: 1.8rem;
-        margin-bottom: 8px;
-    }
-
-    .product-price {
-        font-size: 1.6rem;
-        font-weight: 700;
-        margin-bottom: 8px;
-    }
-
-    .product-short {
-        font-size: 0.95rem;
-        color: #6c757d;
-        max-width: 380px;
-    }
-
-    .product-stock {
-        font-weight: 600;
-    }
-
-.quantity-control {
-    display: inline-flex;
-    align-items: center;
-    border-radius: 999px;
-    background-color: #f5f7fb; /* light pill background */
-    padding: 4px 12px;
-    gap: 10px;
-}
-
-    .quantity-btn {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    border: none;
-    background-color: #0d6efd;      /* solid blue circle */
-    color: #ffffff;                 /* white + / - icon */
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 14px;
-    }
-
-    .quantity-btn:disabled {
-        opacity: 0.5;
-        cursor: default;
-    }
-
-    .quantity-value {
-        min-width: 20px;
-        text-align: center;
-        font-weight: 600;
-    }
-
-    .product-action-icon {
-        width: 42px;
-        height: 42px;
-        border-radius: 50%;
-        border: 1px solid #e0e4f0;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        margin-right: 8px;
-        color: #0d6efd;
-        background-color: #ffffff;
-    }
-
-    .product-action-icon:hover {
-        background-color: #0d6efd;
-        color: #ffffff;
-    }
-
-    .btn-add-cart {
-        border-radius: 999px;
-        padding: 12px 34px;
-        font-weight: 600;
-        font-size: 0.95rem;
-    }
-
-    .product-tabs .nav-link {
-        border-radius: 999px;
-        padding: 8px 18px;
-        font-size: 0.9rem;
-        color: #0d6efd;
-    }
-
-    .product-tabs .nav-link.active {
-        background-color: #0d6efd;
-        color: #ffffff;
-    }
-
-    .product-overview p,
-    .product-overview li {
-        font-size: 0.95rem;
-        color: #4b5563;
-    }
-
-    .best-selling-title {
-        font-size: 1.4rem;
-        font-weight: 700;
-        margin-bottom: 20px;
-    }
-
-    .product-card-mini {
-        border-radius: 14px;
-        border: none;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-        overflow: hidden;
-        height: 100%;
-    }
-
-    .product-card-mini img {
-        width: 100%;
-        height: 190px;
-        object-fit: cover;
-    }
-
-    .rating-stars {
-        color: #ffc107;
-        font-size: 0.85rem;
-    }
-
-    @media (max-width: 991.98px) {
-        .product-main-card {
-            padding: 16px;
-        }
-        .product-title {
-            font-size: 1.5rem;
-        }
-    }
-</style>
-
-@php
-    // Map product array from data file
-    $productName   = $product['title']  ?? 'Product';
-    $productPrice  = $product['price']  ?? 0;
-    $productRating = $product['rating'] ?? 4.5;
-    $ratingCount   = isset($product['reviews']) ? count($product['reviews']) : 0;
-    if ($ratingCount === 0) {
-        $ratingCount = 435; // fallback
-    }
-    $shortDesc     = $product['details'] ?? 'No details available yet.';
-    $images        = $product['images']  ?? [];
-    if (empty($images)) {
-        $images = ['https://via.placeholder.com/800x600'];
-    }
-@endphp
-
-<div class="container product-page">
-
-    {{-- BREADCRUMB --}}
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb mb-3">
-            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('products') }}">Products</a></li>
-            <li class="breadcrumb-item active" aria-current="page">
-                {{ $productName }}
-            </li>
-        </ol>
-    </nav>
-
-    {{-- MAIN PRODUCT SECTION --}}
-    <div class="product-main-card">
-        <div class="row g-4 align-items-start">
-
-            {{-- LEFT: thumbnails + main image --}}
-            <div class="col-lg-6">
-                <div class="row g-3">
-                    <div class="col-2 col-md-3 product-thumbs d-flex flex-column gap-2">
-                        @foreach($images as $index => $img)
-                            <img src="{{ asset($img) }}"
-                                 alt="Thumbnail {{ $index + 1 }}"
-                                 class="img-fluid {{ $index === 0 ? 'active-thumb' : '' }}"
-                                 data-main-target="#product-main-image">
-                        @endforeach
-                    </div>
-                    <div class="col-10 col-md-9">
-                        <img id="product-main-image"
-                             src="{{ asset($images[0]) }}"
-                             class="product-main-image"
-                             alt="{{ $productName }}">
+                {{-- Left Images --}}
+                <div class="col-lg-6">
+                    <div class="row g-3">
+                        <div class="col-3 product-thumbs d-flex flex-column gap-2">
+                            @foreach ($images as $index => $img)
+                                <img src="{{ $img['url'] ?? $placeholder }}" alt="{{ $product['title'] }}"
+                                    class="img-fluid {{ $index === 0 ? 'active-thumb' : '' }}">
+                            @endforeach
+                        </div>
+                        <div class="col-9 border">
+                            <img id="product-main-image" src="{{ $image }}" class="img-fluid product-main-image">
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            {{-- RIGHT: info --}}
-            <div class="col-lg-6">
-                <h1 class="product-title">{{ $productName }}</h1>
+                {{-- Right Content --}}
+                <div class="col-lg-6">
+                    <h2 class="fw-bold mb-2">{{ $product['title'] }}</h2>
+                    <small class="text-muted d-block mb-1">SKU: {{ $product['sku'] ?? 'N/A' }}</small>
 
-                <div class="d-flex align-items-center mb-2">
-                    <div class="rating-stars me-2">
-                        @for($i = 1; $i <= 5; $i++)
-                            @if($productRating >= $i)
-                                <i class="fa-solid fa-star"></i>
-                            @elseif($productRating >= $i - 0.5)
-                                <i class="fa-solid fa-star-half-stroke"></i>
-                            @else
-                                <i class="fa-regular fa-star"></i>
-                            @endif
+                    {{-- Rating --}}
+                    <div class="text-warning mb-2">
+                        @for ($i = 1; $i <= 5; $i++)
+                            <i class="fa{{ ($product['rating'] ?? 0) >= $i ? 's' : 'r' }} fa-star"></i>
                         @endfor
+                        <small class="text-muted">({{ $ratingCount }} reviews)</small>
                     </div>
-                    <span class="text-muted small">({{ $ratingCount }})</span>
-                </div>
 
-                <div class="product-price mb-2">
-                    ${{ number_format($productPrice, 2) }}
-                </div>
+                    {{-- Price Section --}}
+                    @if (isset($product['offer']) && $product['offer'] > 0)
+                        <h4 class="text-danger fw-bold">
+                            ${{ number_format($finalPrice, 2) }}
+                            <small class="text-muted text-decoration-line-through">
+                                ${{ number_format($product['price'], 2) }}
+                            </small>
+                            <span class="badge bg-success ms-2">{{ $product['offer'] }}% OFF</span>
+                        </h4>
+                    @else
+                        <h4 class="text-primary fw-bold">${{ number_format($product['price'], 2) }}</h4>
+                    @endif
 
-                <p class="product-short mb-2">
-                    {{ $shortDesc }}
-                </p>
+                    <p class="text-muted mt-2">{{ $product['details'] ?? '' }}</p>
 
-                <p class="mb-3">
-                    <span class="text-success product-stock">In Stock</span>
-                </p>
+                    {{-- Meta Info --}}
+                    <ul class="list-unstyled small">
+                        <li><strong>Category:</strong> {{ $product['category'] ?? '' }}</li>
+                        <li><strong>Available:</strong> {{ $product['quantity'] ?? 0 }}</li>
+                        <li><strong>Sold:</strong> {{ $product['sold'] ?? 0 }}</li>
+                    </ul>
 
-                {{-- Quantity + Add to cart --}}
-                <div class="mb-3">
-                    <span class="me-3 fw-semibold">Quantity:</span>
-                    <div class="quantity-control" data-qty-container>
-                        <button type="button" class="quantity-btn" data-qty-minus>-</button>
-                        <span class="quantity-value" data-qty-value>1</span>
-                        <button type="button" class="quantity-btn" data-qty-plus>+</button>
+                    @if (!empty($product['is_featured']))
+                        <span class="badge bg-warning text-dark">Featured Product</span>
+                    @endif
+
+                    {{-- Quantity Select --}}
+                    <div class="d-flex align-items-center my-3">
+                        <strong class="me-2">Quantity:</strong>
+                        <div class="d-flex align-items-center border rounded-pill px-2 py-1">
+                            <button class="btn btn-sm btn-primary rounded-circle" data-qty-minus>-</button>
+                            <span class="mx-3 fw-semibold" data-qty-value>1</span>
+                            <button class="btn btn-sm btn-primary rounded-circle" data-qty-plus>+</button>
+                        </div>
                     </div>
+
+                    {{-- Tags --}}
+                    @if ($tags)
+                        <div class="mb-3">
+                            @foreach ($tags as $tag)
+                                <span class="badge bg-light text-dark border me-1">{{ $tag }}</span>
+                            @endforeach
+                        </div>
+                    @endif
+
+                    <button class="btn btn-primary rounded-pill px-4">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        {{-- Attributes Section --}}
+        @if ($attributes && count($attributes) > 0)
+            <div class="card border-0 shadow-sm rounded-4 p-3 mb-4">
+                <h5 class="fw-bold mb-3">Product Attributes</h5>
+                <table class="table table-sm">
+                    @foreach ($attributes as $key => $value)
+                        <tr>
+                            <th>{{ $key }}</th>
+                            <td>{{ $value }}</td>
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
+        @endif
+
+        {{-- Description & Reviews Tabs --}}
+        <div class="card border-0 shadow-sm rounded-4 p-3 mb-4">
+            <ul class="nav nav-pills mb-3" id="productTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="description-tab" data-bs-toggle="pill"
+                        data-bs-target="#description-pane" type="button" role="tab">Details</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="reviews-tab" data-bs-toggle="pill" data-bs-target="#reviews-pane"
+                        type="button" role="tab">Reviews ({{ $ratingCount ?? 0 }})</button>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="productTabContent">
+                {{-- Description Tab --}}
+                <div class="tab-pane fade show active" id="description-pane" role="tabpanel">
+                    <p class="fs-5 fw-medium">{{ $product['details'] ?? 'No details available.' }}</p>
                 </div>
 
-                <div class="d-flex align-items-center flex-wrap gap-2 mb-3">
-                    <div>
-                        <button type="button" class="product-action-icon" title="Add to Wishlist">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-                        <button type="button" class="product-action-icon" title="Share">
-                            <i class="fa-solid fa-share-nodes"></i>
-                        </button>
-                    </div>
-                    <button type="button" class="btn btn-primary btn-add-cart ms-lg-3 mt-2 mt-lg-0">
-                        Add to Cart
-                    </button>
+                {{-- Reviews Tab --}}
+                <div class="tab-pane fade" id="reviews-pane" role="tabpanel">
+                    @if ($reviews && count($reviews) > 0)
+                        @foreach ($reviews as $review)
+                            <div class="border-bottom pb-2 mb-2">
+                                <strong>{{ $review['user'] ?? 'Anonymous' }}</strong>
+                                <div class="text-warning small">
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        <i class="fa{{ ($review['rating'] ?? 0) >= $i ? 's' : 'r' }} fa-star"></i>
+                                    @endfor
+                                </div>
+                                <p class="small text-muted">{{ $review['comment'] ?? '' }}</p>
+                            </div>
+                        @endforeach
+                    @else
+                        <p class="fs-5 fw-medium">No reviews yet.</p>
+                    @endif
                 </div>
-
             </div>
         </div>
     </div>
 
-    {{-- DESCRIPTION / REVIEWS TABS --}}
-<div class="mb-4">
-    <ul class="nav nav-pills product-tabs mb-3" id="product-tab" role="tablist">
-        <li class="nav-item" role="presentation">
-            <button class="nav-link active"
-                    id="description-tab"
-                    data-bs-toggle="pill"
-                    data-bs-target="#description-pane"
-                    type="button"
-                    role="tab">
-                Description
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link"
-                    id="reviews-tab"
-                    data-bs-toggle="pill"
-                    data-bs-target="#reviews-pane"
-                    type="button"
-                    role="tab">
-                Reviews
-            </button>
-        </li>
-    </ul>
-
-    <div class="tab-content">
-
-        {{-- Description Tab --}}
-        <div class="tab-pane fade show active" id="description-pane" role="tabpanel">
-            <div class="product-overview">
-                <h4 class="mb-3">Product Overview</h4>
-
-                <p>{{ $shortDesc }}</p>
-                <p>{{ $shortDesc }}</p>
-
-                <ol class="mt-3 mb-3">
-                    <li>{{ $shortDesc }}</li>
-                    <li>{{ $shortDesc }}</li>
-                    <li>{{ $shortDesc }}</li>
-                </ol>
-
-                <p>{{ $shortDesc }}</p>
-            </div>
-        </div>
-
-        {{-- Reviews Tab --}}
-        <div class="tab-pane fade" id="reviews-pane" role="tabpanel">
-            <p class="text-muted">
-                No reviews yet. (Later you can pull from DB)
-            </p>
-        </div>
-
-    </div>
-</div>
-
-
-<script>
-    // Thumbnail → main image swap
-    document.querySelectorAll('.product-thumbs img').forEach(function (thumb) {
-        thumb.addEventListener('click', function () {
-            const targetSelector = this.getAttribute('data-main-target');
-            const mainImg = document.querySelector(targetSelector);
-            if (!mainImg) return;
-
-            mainImg.src = this.src;
-
-            document.querySelectorAll('.product-thumbs img').forEach(function (img) {
-                img.classList.remove('active-thumb');
-            });
-            this.classList.add('active-thumb');
-        });
-    });
-
-    // Quantity control
-    document.querySelectorAll('[data-qty-container]').forEach(function (container) {
-        const minusBtn = container.querySelector('[data-qty-minus]');
-        const plusBtn  = container.querySelector('[data-qty-plus]');
-        const valueEl  = container.querySelector('[data-qty-value]');
-        let value = parseInt(valueEl.textContent || '1', 10);
-
-        function updateButtons() {
-            if (value <= 1) {
-                value = 1;
-                minusBtn.setAttribute('disabled', 'disabled');
-            } else {
-                minusBtn.removeAttribute('disabled');
-            }
+    <style>
+        .product-main-image {
+            border-radius: 16px;
         }
 
-        minusBtn.addEventListener('click', function () {
-            value--;
-            if (value < 1) value = 1;
-            valueEl.textContent = value;
-            updateButtons();
+        .product-thumbs img {
+            border-radius: 12px;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .product-thumbs img.active-thumb {
+            border-color: #0d6efd;
+        }
+    </style>
+
+    <script>
+        // Thumbnail switch
+        document.querySelectorAll('.product-thumbs img').forEach(img => {
+            img.onclick = function() {
+                document.querySelector('#product-main-image').src = this.src;
+                document.querySelectorAll('.product-thumbs img').forEach(i => i.classList.remove(
+                    'active-thumb'));
+                this.classList.add('active-thumb');
+            }
         });
 
-        plusBtn.addEventListener('click', function () {
+        // Quantity control
+        let value = 1;
+        const valueEl = document.querySelector('[data-qty-value]');
+
+        document.querySelector('[data-qty-plus]').onclick = () => {
             value++;
             valueEl.textContent = value;
-            updateButtons();
-        });
+        }
 
-        updateButtons();
-    });
-</script>
+        document.querySelector('[data-qty-minus]').onclick = () => {
+            if (value > 1) value--;
+            valueEl.textContent = value;
+        }
+    </script>
+
 @endsection

@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Services\CloudinaryService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -16,98 +17,149 @@ class ProductController extends Controller
         $this->cloudinary = $cloudinary;
     }
 
-    // List all products
-    public function getAllProducts()
+    public function getAllProducts(Request $request)
     {
-        // $products = Product::where('is_active', true)
-        //     ->orderBy('created_at', 'desc')
-        //     ->get();
-        $products = Product::where('is_active', true)->get();
+        $query = Product::where('is_active', true);
+
+        // Filter by category
+        if ($request->query('category')) {
+            $query->where('category', $request->query('category'));
+        }
+
+        // Search by keyword
+        if ($request->query('search')) {
+            $keyword = $request->query('search');
+            $query->where('title', 'like', "%{$keyword}%")
+                ->orWhere('details', 'like', "%{$keyword}%");
+        }
+
+        // Sorting
+        $sort = $request->query('sort', 'popular');
+        switch ($sort) {
+            case 'price_asc':
+                $query->orderBy('price', 'asc');
+                break;
+            case 'price_desc':
+                $query->orderBy('price', 'desc');
+                break;
+            case 'latest':
+                $query->orderBy('created_at', 'desc');
+                break;
+            default: // 'popular'
+                $query->orderByDesc('sold');
+                break;
+        }
+
+        $products = $query->get()->toArray();
 
         return view('pages.products', [
             'products' => $products,
             'productPageBanner' => asset('images/product_page_banner.png'),
+            'currentSort' => $sort,
+            'currentCategory' => $request->query('category', null),
+            'searchKeyword' => $request->query('search', ''),
         ]);
     }
 
-    // Show single product
-    public function show(Product $product)
+    // top 20 sold products from db
+    public static function getTrendingProducts()
     {
-        return response()->json($product);
+        return Product::where('is_active', true)
+            ->orderByDesc('sold')
+            ->take(20)
+            ->get()->toArray();
+    }
+
+    // Show single product
+    public function getProductById($id)
+    {
+        $product = Product::findOrFail($id)->toArray();
+
+        return view('pages.productDetails', compact('product'));
     }
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'title' => 'required|string|max:255',
-            'details' => 'nullable|string',
-            'category' => 'nullable|string|max:255',
-            'sku' => 'nullable|string|unique:products,sku',
-            'price' => 'required|numeric',
-            'offer' => 'nullable|numeric',
-            'quantity' => 'nullable|integer',
-            'sold' => 'nullable|integer',
-            'rating' => 'nullable|numeric',
+        try {
+            DB::beginTransaction();
 
-            'reviews' => 'nullable|array',
+            $data = $request->validate([
+                'title' => 'required|string|max:255',
+                'details' => 'nullable|string',
+                'category' => 'nullable|string|max:255',
+                'sku' => 'nullable|string|unique:products,sku',
+                'price' => 'required|numeric',
+                'offer' => 'nullable|numeric',
+                'quantity' => 'nullable|integer',
+                'sold' => 'nullable|integer',
+                'rating' => 'nullable|numeric',
 
-            'images' => 'nullable|array',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+                'reviews' => 'nullable|array',
 
-            'tags' => 'nullable|string',
+                'images' => 'nullable|array',
+                'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048',
 
-            'is_active' => 'nullable|boolean',
-            'is_featured' => 'nullable|boolean',
+                'tags' => 'nullable|string',
 
-            'attributes' => 'nullable|array',
-            'attributes.key' => 'nullable|array',
-            'attributes.value' => 'nullable|array',
-        ]);
+                'is_active' => 'nullable|boolean',
+                'is_featured' => 'nullable|boolean',
 
-        // Convert tags
-        $data['tags'] = $data['tags']
-            ? array_map('trim', explode(',', $data['tags']))
-            : [];
+                'attributes' => 'nullable|array',
+                'attributes.key' => 'nullable|array',
+                'attributes.value' => 'nullable|array',
+            ]);
 
-        // Step 2: Convert attributes key/value arrays into associative array
-        if ($request->has('attributes')) {
-            $attrs = [];
-            foreach ($request->input('attributes')['key'] as $i => $key) {
-                $value = $request->input('attributes')['value'][$i] ?? null;
-                if ($key && $value) {
-                    $attrs[$key] = $value;
+            // Convert tags
+            $data['tags'] = $data['tags']
+                ? array_map('trim', explode(',', $data['tags']))
+                : [];
+
+            // Convert attributes
+            if ($request->has('attributes')) {
+                $attrs = [];
+                foreach ($request->input('attributes')['key'] as $i => $key) {
+                    $value = $request->input('attributes')['value'][$i] ?? null;
+                    if ($key && $value)
+                        $attrs[$key] = $value;
                 }
+                $data['attributes'] = $attrs;
+            } else {
+                $data['attributes'] = [];
             }
-            $data['attributes'] = $attrs;
-        } else {
-            $data['attributes'] = [];
+
+            // Default values
+            $data['sold'] ??= 0;
+            $data['rating'] ??= 0;
+            $data['reviews'] ??= [];
+            $data['tags'] ??= [];
+            $data['is_active'] ??= true;
+            $data['is_featured'] ??= false;
+
+            // Upload images
+            if ($request->hasFile('images')) {
+                $uploadedImages = $this->cloudinary->uploadProductImages(
+                    $request->file('images'),
+                    $data['title'],
+                    '/products'
+                );
+                $data['images'] = array_values($uploadedImages);
+            }
+
+            // Save product (Eloquent ORM - Mass Assignment)
+            Product::create($data);
+
+            DB::commit();
+
+            return redirect()->back()->with('add_product_success', 'Product added successfully!');
+
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            return redirect()->back()->with('error', 'Failed: ' . $e->getMessage());
         }
-
-        // Step 3: Set default values using ??=
-        $data['sold'] ??= 0;
-        $data['rating'] ??= 0;
-        $data['reviews'] ??= [];
-        $data['tags'] ??= [];
-        $data['is_active'] ??= true;
-        $data['is_featured'] ??= false;
-
-        if ($request->hasFile('images')) {
-            // Upload images to Cloudinary with readable filenames
-            $uploadedImages = $this->cloudinary->uploadProductImages(
-                $request->file('images'),
-                $data['title'],
-                '/products'
-            );
-
-            $data['images'] = array_values($uploadedImages);
-        }
-
-        // Step 5: Create the product
-        Product::create($data);
-
-        // Step 6: Redirect back with success message
-        return redirect()->back()->with('add_product_success', 'Product added successfully!');
     }
+
 
 
     // Update product

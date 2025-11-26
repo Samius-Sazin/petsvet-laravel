@@ -1,22 +1,21 @@
 @props(['product'])
 
 @php
-    $image = isset($product->images[0]['url']) ? $product->images[0]['url'] : 'https://via.placeholder.com/200x150';
+    $placeholder = config('constants.placeholder_image');
 
-    $hasOffer = $product['offer'] > 0;
+    $image = isset($product['images'][0]['url']) ? $product['images'][0]['url'] : $placeholder;
+    $hasOffer = isset($product['offer']) && $product['offer'] > 0;
     $finalPrice = $hasOffer ? $product['price'] - ($product['price'] * $product['offer']) / 100 : $product['price'];
-    $id = $product->id;
+    $id = $product['id'];
 @endphp
 
 <script>
     console.log(@json($product));
 </script>
 
-
-
 <div class="card h-100 shadow-sm border-0">
     <div class="img-placeholder">
-        <img src="{{ $image }}" class="card-img-top" alt="{{ $product['title'] ?? 'Product' }}">
+        <img src="{{ $image }}" class="card-img-top" alt="{{ $product['image'] ?? 'Product' }}">
     </div>
 
     <div class="card-body d-flex flex-column">
@@ -36,7 +35,6 @@
         </a>
     </div>
 </div>
-
 
 <style>
     .img-placeholder {

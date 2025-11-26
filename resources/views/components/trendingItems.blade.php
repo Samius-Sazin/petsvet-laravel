@@ -1,11 +1,14 @@
 @php
-    $trendingProducts = include resource_path('views/data/trendingProducts.php');
-    $fetchFailed = false;
+    use App\Http\Controllers\ProductController;
 
-    // Fallback for images
+    $placeholder = config('constants.placeholder_image');
+
+    // Fetch trending products
+    $trendingProducts = ProductController::getTrendingProducts();
+
+    // Add placeholder for missing images
     foreach ($trendingProducts as &$product) {
-        $product['image'] =
-            count($product['images']) > 0 ? $product['images'][0] : 'https://via.placeholder.com/200x150';
+        $product['image'] = isset($product['images'][0]['url']) ? $product['images'][0]['url'] : $placeholder;
     }
 
     // Helper: chunk products for carousel slides
@@ -16,16 +19,15 @@
 @endphp
 
 <div class="container my-5">
-    <h1 class="text-center fw-bold mb-5 text-dark">
-        Trending Items
-    </h1>
+    <h1 class="text-center fw-bold mb-5 text-dark">Trending Items</h1>
 
     @if (count($trendingProducts) > 0)
         <div id="trendingCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
             <div class="carousel-inner">
                 @php
-                    $slides = chunkProducts($trendingProducts, 4);
+                    $slides = chunkProducts($trendingProducts, min(4, count($trendingProducts)));
                 @endphp
+
 
                 @foreach ($slides as $chunkIndex => $productChunk)
                     <div class="carousel-item @if ($chunkIndex === 0) active @endif">
@@ -40,7 +42,7 @@
                 @endforeach
             </div>
 
-            {{-- Buttons overlay --}}
+            {{-- Carousel buttons --}}
             <button class="carousel-control-prev" type="button" data-bs-target="#trendingCarousel"
                 data-bs-slide="prev">
                 <span class="carousel-control-prev-icon btn-custom" aria-hidden="true"></span>
@@ -54,19 +56,14 @@
         </div>
     @else
         <div class="d-flex justify-content-center">
-            @if ($fetchFailed)
-                <span class="text-muted small">Can't load data</span>
-            @else
-                <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
-            @endif
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
         </div>
     @endif
 </div>
 
 <style>
-    /* Larger buttons over images */
     .carousel-control-prev,
     .carousel-control-next {
         width: 80px;
@@ -77,7 +74,7 @@
 
     .carousel-control-prev-icon,
     .carousel-control-next-icon {
-        background-size: 100%, 100%;
+        background-size: 100% 100%;
         border-radius: 50%;
         background-color: rgba(0, 0, 0, 0.6);
     }
@@ -96,7 +93,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         const carouselElement = document.querySelector('#trendingCarousel');
         if (carouselElement) {
-            const carousel = new bootstrap.Carousel(carouselElement, {
+            new bootstrap.Carousel(carouselElement, {
                 interval: 3000,
                 ride: 'carousel',
                 pause: 'hover',

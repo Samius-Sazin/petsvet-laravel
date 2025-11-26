@@ -18,5 +18,5 @@
 
     @include('components.faq')
 
-    @include('components.forYouItems')
+    {{-- @include('components.forYouItems') --}}
 @endsection

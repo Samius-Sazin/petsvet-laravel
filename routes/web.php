@@ -35,26 +35,8 @@ Route::get('/consultancy', function () {
 // products
 Route::get('/products', [ProductController::class, 'getAllProducts'])->name('products');
 
-// TODO: update product details
-Route::get('/products/{id}', function ($id) {
-    // Load product data from your existing arrays
-    $forYou = include resource_path('views/data/forYouProducts.php');
-    $trending = include resource_path('views/data/trendingProducts.php');
-
-    // Merge both lists into one big collection
-    $products = collect($forYou)->merge($trending);
-
-    // Find product by `_id`
-    $product = $products->firstWhere('_id', (int) $id);
-
-    if (!$product) {
-        abort(404);
-    }
-
-    return view('pages.productDetails', [
-        'product' => $product,
-    ]);
-})->name('product.details');
+// Product details
+Route::get('/product/{id}', [ProductController::class, 'getProductById'])->name('product.details');
 
 Route::get('/privacy-and-policy', function () {
     return view('pages.privacyAndPolicy');

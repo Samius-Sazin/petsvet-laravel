@@ -1,9 +1,16 @@
-@php
-    $productPageBanner = asset('images/about-cat-1.png');
-@endphp
-
 @extends('main')
 @section('title', '| Products')
+
+@php
+    $categories = [
+        'food' => 'Food',
+        'grooming' => 'Grooming',
+        'house' => 'House',
+        'bag' => 'Travel Bag',
+    ];
+
+    $selectedCategory = $categories[$currentCategory ?? ''] ?? 'Category';
+@endphp
 
 @section('content')
     <!-- Banner Section -->
@@ -22,12 +29,15 @@
         <div class="row align-items-center">
             <!-- Search bar -->
             <div class="col-6 col-md-4 d-flex align-items-center gap-2">
-                <form class="w-100 d-flex align-items-center">
+                <form class="w-100 d-flex align-items-center" method="GET" action="{{ route('products') }}">
                     <div class="input-group d-none d-md-flex">
-                        <span class="input-group-text bg-white btn border"><i class="fas fa-search"></i></span>
-                        <input type="text" class="form-control" placeholder="Search products...">
+                        <span class="input-group-text bg-white btn border">
+                            <i class="fas fa-search"></i>
+                        </span>
+                        <input type="text" name="search" value="{{ $searchKeyword ?? '' }}" class="form-control"
+                            placeholder="Search products...">
                     </div>
-                    <button class="btn btn-outline-dark d-md-none">
+                    <button class="btn btn-outline-dark d-md-none" type="submit">
                         <i class="fas fa-search"></i>
                     </button>
                 </form>
@@ -35,15 +45,45 @@
 
             <!-- Sort + Category (Right Side) -->
             <div class="col-6 col-md-8 d-flex justify-content-end gap-3">
-                <div class="d-flex align-items-center gap-1 btn border">
-                    <i class="fas fa-sort"></i>
-                    <span class="d-none d-md-inline">Sort By</span>
+
+                <!-- Sort Dropdown -->
+                <div class="dropdown">
+                    <button class="btn border d-flex align-items-center gap-1 dropdown-toggle" type="button"
+                        id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-sort"></i>
+                        <span class="d-none d-md-inline">Sort By</span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+                        <li><a class="dropdown-item" href="{{ route('products', ['sort' => 'price_asc']) }}">Price: Low to
+                                High</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products', ['sort' => 'price_desc']) }}">Price: High to
+                                Low</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products', ['sort' => 'latest']) }}">Latest</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products', ['sort' => 'popular']) }}">Most Popular</a>
+                        <li><a class="dropdown-item" href="{{ route('products') }}">Default</a></li>
+                    </ul>
                 </div>
-                <div class="d-flex align-items-center gap-1 btn border">
-                    <i class="fas fa-filter"></i>
-                    <span class="d-none d-md-inline">Category</span>
+
+                <!-- Category Dropdown -->
+                <div class="dropdown">
+                    <button class="btn border d-flex align-items-center gap-1 dropdown-toggle" type="button"
+                        id="categoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-filter"></i>
+                        <span class="d-none d-md-inline">{{ $selectedCategory }}</span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+                        @foreach ($categories as $key => $label)
+                            <li>
+                                <a class="dropdown-item @if (($currentCategory ?? '') === $key) active @endif"
+                                    href="{{ route('products', array_merge(request()->except('page'), ['category' => $key])) }}">
+                                    {{ $label }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -60,13 +100,14 @@
         </div>
 
         <div class="text-center mt-4">
-            <button class="btn btn-primary px-4 py-2">Explore More</button>
+            <button class="btn btn-primary px-4 py-2" onclick="window.location.reload()">Explore More</button>
         </div>
+
     </div>
 
     <div style="margin: 100px 0;"></div>
 
-    {{-- @include('components.trendingItems') --}}
+    @include('components.trendingItems')
 
     <div style="margin: 100px 0;"></div>
 
