@@ -223,3 +223,71 @@ openssl.cafile = "C:\path\to\cacert.pem"
 6. **Verify changes**:
 
 * Use `phpinfo()` or `php -i` to check:
+
+
+# 📌 Database Seeding Guide (Using iSeed)
+
+This project uses **iSeed** to generate seed files directly from existing database tables.
+This allows all team members to have **exact same sample data** in their local environment.
+
+Install package:
+```bash
+composer require orangehill/iseed
+```
+
+---
+
+## 🚀 How to Generate Seeds (For the Developer Who Has the Data)
+
+Run these commands to export your current DB data:
+
+```bash
+php artisan iseed users
+php artisan iseed products
+```
+
+This will create:
+
+```
+/database/seeders/UsersTableSeeder.php
+/database/seeders/ProductsTableSeeder.php
+```
+
+---
+
+## 📥 How Team Members Should Use the Seeds
+
+After pulling the project:
+
+### 1. Migrate the database
+
+```bash
+php artisan migrate
+```
+
+### 2. Run the seeders
+
+```bash
+php artisan db:seed --class=UsersTableSeeder
+php artisan db:seed --class=ProductsTableSeeder
+```
+
+Or run all seeders at once (if linked in `DatabaseSeeder.php`):
+
+```bash
+php artisan db:seed
+```
+
+---
+
+## 🔄 Updating Seed Data Later
+
+If the database changes and you want to update the seed:
+
+```bash
+php artisan iseed users --force
+php artisan iseed products --force
+```
+
+This overwrites old seed files with fresh DB data.
+

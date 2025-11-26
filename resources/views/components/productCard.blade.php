@@ -1,7 +1,7 @@
 @props(['product'])
 
 @php
-    $placeholder = config('constants.placeholder_image');
+    $placeholder = asset(config('constants.placeholder_image'));
 
     $image = isset($product['images'][0]['url']) ? $product['images'][0]['url'] : $placeholder;
     $hasOffer = isset($product['offer']) && $product['offer'] > 0;

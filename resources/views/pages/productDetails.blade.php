@@ -5,7 +5,7 @@
 @section('content')
 
     @php
-        $placeholder = config('constants.placeholder_image');
+        $placeholder = asset(config('constants.placeholder_image'));
         $image = $product['images'][0]['url'] ?? $placeholder;
         $images = $product['images'] ?? [];
         $finalPrice =

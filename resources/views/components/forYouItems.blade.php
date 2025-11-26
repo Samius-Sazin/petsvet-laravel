@@ -1,7 +1,7 @@
 @php
     use App\Http\Controllers\ProductController;
 
-    $placeholder = config('constants.placeholder_image');
+    $placeholder = asset(config('constants.placeholder_image'));
 
     // Fetch trending products
     $trendingProducts = ProductController::getTrendingProducts();
