@@ -116,6 +116,23 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Get CSRF token helper function
+            function getCsrfToken() {
+                const metaTag = document.querySelector('meta[name="csrf-token"]');
+                if (metaTag) {
+                    return metaTag.getAttribute('content');
+                }
+                // Fallback: try to get from cookie (XSRF-TOKEN)
+                const cookies = document.cookie.split(';');
+                for (let cookie of cookies) {
+                    const [name, value] = cookie.trim().split('=');
+                    if (name === 'XSRF-TOKEN') {
+                        return decodeURIComponent(value);
+                    }
+                }
+                return '';
+            }
+
             const modal = new bootstrap.Modal(document.getElementById('articleModal'));
             let currentArticleId = null;
 
@@ -210,16 +227,35 @@
                         // Disable button during request
                         this.disabled = true;
 
+                        // Get CSRF token
+                        const csrfToken = getCsrfToken();
+                        if (!csrfToken) {
+                            alert('CSRF token not found. Please refresh the page and try again.');
+                            this.disabled = false;
+                            return;
+                        }
+
                         // Make AJAX request to toggle like
                         fetch(`/articles/${currentArticleId}/like`, {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                                'Accept': 'application/json',
+                                'X-CSRF-TOKEN': csrfToken,
+                                'X-Requested-With': 'XMLHttpRequest'
                             },
                             credentials: 'same-origin'
                         })
-                        .then(response => response.json())
+                        .then(response => {
+                            if (!response.ok) {
+                                return response.json().then(data => {
+                                    throw new Error(data.message || `HTTP error! status: ${response.status}`);
+                                }).catch(() => {
+                                    throw new Error(`HTTP error! status: ${response.status}`);
+                                });
+                            }
+                            return response.json();
+                        })
                         .then(data => {
                             if (data.success) {
                                 // Update UI based on response
@@ -244,7 +280,7 @@
                         })
                         .catch(error => {
                             console.error('Error:', error);
-                            alert('An error occurred. Please try again.');
+                            alert(error.message || 'An error occurred. Please try again.');
                         })
                         .finally(() => {
                             this.disabled = false;

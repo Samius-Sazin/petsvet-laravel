@@ -73,7 +73,7 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function toggleLike(Request $request, $articleId)
+    public function toggleLike(Request $request, Article $article)
     {
         if (!Auth::check()) {
             return response()->json([
@@ -83,8 +83,8 @@ class ArticleController extends Controller
         }
 
         try {
-            $article = Article::findOrFail($articleId);
             $userId = Auth::id();
+            $articleId = $article->id;
 
             // Check if user already has a like record for this article
             $existingLike = ArticleLike::where('article_id', $articleId)
