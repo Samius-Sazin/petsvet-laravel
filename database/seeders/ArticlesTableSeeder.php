@@ -22,7 +22,7 @@ class ArticlesTableSeeder extends Seeder
             0 => 
             array (
                 'id' => 1,
-                'user_id' => 1,
+                'user_id' => 4,
                 'title' => 'Understanding Your Pet\'s Body Language: Signs of Illness',
                 'content' => 'Lorem ipsum dolor sit amet consectetur. Arcu magna nam nibh ultricies. Duis at congue ultrices at. Praesent risus risus tortor. Understanding your pet\'s body language is crucial for early detection of health issues. Pets communicate through subtle changes in behavior, posture, and movement. Learn to recognize the warning signs that indicate your furry friend may need medical attention.',
                 'image' => 'https://res.cloudinary.com/dgefiku3r/image/upload/v1764262321/blog-1_g6tscq.jpg',
@@ -33,7 +33,7 @@ class ArticlesTableSeeder extends Seeder
             1 => 
             array (
                 'id' => 2,
-                'user_id' => 1,
+                'user_id' => 4,
                 'title' => 'Understanding Your Pet\'s Body Language: Signs of Illness',
                 'content' => 'Lorem ipsum dolor sit amet consectetur. Arcu magna nam nibh ultricies. Duis at congue ultrices at. Praesent risus risus tortor. Understanding your pet\'s body language is crucial for early detection of health issues. Pets communicate through subtle changes in behavior, posture, and movement. Learn to recognize the warning signs that indicate your furry friend may need medical attention.',
                 'image' => 'https://res.cloudinary.com/dgefiku3r/image/upload/v1764262321/blog-2_t8s4hy.jpg',
@@ -44,7 +44,7 @@ class ArticlesTableSeeder extends Seeder
             2 => 
             array (
                 'id' => 3,
-                'user_id' => 1,
+                'user_id' => 4,
                 'title' => 'Understanding Your Pet\'s Body Language: Signs of Illness',
                 'content' => 'Lorem ipsum dolor sit amet consectetur. Arcu magna nam nibh ultricies. Duis at congue ultrices at. Praesent risus risus tortor. Understanding your pet\'s body language is crucial for early detection of health issues. Pets communicate through subtle changes in behavior, posture, and movement. Learn to recognize the warning signs that indicate your furry friend may need medical attention.',
                 'image' => 'https://res.cloudinary.com/dgefiku3r/image/upload/v1764262321/blog-5_yckqz6.jpg',
@@ -55,7 +55,7 @@ class ArticlesTableSeeder extends Seeder
             3 => 
             array (
                 'id' => 4,
-                'user_id' => 1,
+                'user_id' => 4,
                 'title' => 'Understanding Your Pet\'s Body Language: Signs of Illness',
                 'content' => 'Lorem ipsum dolor sit amet consectetur. Arcu magna nam nibh ultricies. Duis at congue ultrices at. Praesent risus risus tortor. Understanding your pet\'s body language is crucial for early detection of health issues. Pets communicate through subtle changes in behavior, posture, and movement. Learn to recognize the warning signs that indicate your furry friend may need medical attention.',
                 'image' => 'https://res.cloudinary.com/dgefiku3r/image/upload/v1764262321/blog-6_ydudjc.jpg',
@@ -66,7 +66,7 @@ class ArticlesTableSeeder extends Seeder
             4 => 
             array (
                 'id' => 5,
-                'user_id' => 1,
+                'user_id' => 4,
                 'title' => 'Understanding Your Pet\'s Body Language: Signs of Illness',
                 'content' => 'Lorem ipsum dolor sit amet consectetur. Arcu magna nam nibh ultricies. Duis at congue ultrices at. Praesent risus risus tortor. Understanding your pet\'s body language is crucial for early detection of health issues. Pets communicate through subtle changes in behavior, posture, and movement. Learn to recognize the warning signs that indicate your furry friend may need medical attention.',
                 'image' => 'https://res.cloudinary.com/dgefiku3r/image/upload/v1764262322/blog-3_jcat1a.jpg',
@@ -77,7 +77,7 @@ class ArticlesTableSeeder extends Seeder
             5 => 
             array (
                 'id' => 6,
-                'user_id' => 1,
+                'user_id' => 4,
                 'title' => 'Understanding Your Pet\'s Body Language: Signs of Illness',
                 'content' => 'Lorem ipsum dolor sit amet consectetur. Arcu magna nam nibh ultricies. Duis at congue ultrices at. Praesent risus risus tortor. Understanding your pet\'s body language is crucial for early detection of health issues. Pets communicate through subtle changes in behavior, posture, and movement. Learn to recognize the warning signs that indicate your furry friend may need medical attention.',
                 'image' => 'https://res.cloudinary.com/dgefiku3r/image/upload/v1764262322/blog-9_zd0aio.jpg',
@@ -88,7 +88,7 @@ class ArticlesTableSeeder extends Seeder
             6 => 
             array (
                 'id' => 7,
-                'user_id' => 1,
+                'user_id' => 4,
                 'title' => 'Understanding Your Pet\'s Body Language: Signs of Illness',
                 'content' => 'Lorem ipsum dolor sit amet consectetur. Arcu magna nam nibh ultricies. Duis at congue ultrices at. Praesent risus risus tortor. Understanding your pet\'s body language is crucial for early detection of health issues. Pets communicate through subtle changes in behavior, posture, and movement. Learn to recognize the warning signs that indicate your furry friend may need medical attention.',
                 'image' => 'https://res.cloudinary.com/dgefiku3r/image/upload/v1764262321/blog-4_umnii7.jpg',
@@ -99,7 +99,7 @@ class ArticlesTableSeeder extends Seeder
             7 => 
             array (
                 'id' => 8,
-                'user_id' => 1,
+                'user_id' => 4,
                 'title' => 'Understanding Your Pet\'s Body Language: Signs of Illness',
                 'content' => 'Lorem ipsum dolor sit amet consectetur. Arcu magna nam nibh ultricies. Duis at congue ultrices at. Praesent risus risus tortor. Understanding your pet\'s body language is crucial for early detection of health issues. Pets communicate through subtle changes in behavior, posture, and movement. Learn to recognize the warning signs that indicate your furry friend may need medical attention.',
                 'image' => 'https://res.cloudinary.com/dgefiku3r/image/upload/v1764262322/blog-7_mkklma.jpg',
@@ -110,7 +110,7 @@ class ArticlesTableSeeder extends Seeder
             8 => 
             array (
                 'id' => 9,
-                'user_id' => 1,
+                'user_id' => 4,
                 'title' => 'Understanding Your Pet\'s Body Language: Signs of Illness',
                 'content' => 'Lorem ipsum dolor sit amet consectetur. Arcu magna nam nibh ultricies. Duis at congue ultrices at. Praesent risus risus tortor. Understanding your pet\'s body language is crucial for early detection of health issues. Pets communicate through subtle changes in behavior, posture, and movement. Learn to recognize the warning signs that indicate your furry friend may need medical attention.',
                 'image' => 'https://res.cloudinary.com/dgefiku3r/image/upload/v1764262322/blog-8_gkh7yy.jpg',
