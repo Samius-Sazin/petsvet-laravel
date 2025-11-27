@@ -7,9 +7,29 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\FirebaseController;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Article;
+// 👇 এই লাইনটি মিসিং ছিল, এটা ছাড়া QnA পেজ চলবে না
+use App\Http\Controllers\QnaController;
+
+// --- Public Routes ---
 
 Route::get('/', function () {
-    return view('pages.home');
+    // Get recent articles (latest 3)
+    $recentArticles = Article::with('user')
+        ->orderBy('created_at', 'desc')
+        ->take(3)
+        ->get();
+    
+    $userId = Auth::id();
+    
+    $recentArticles->each(function ($article) use ($userId) {
+        $article->likes_count = $article->getLikesCountAttribute();
+        $article->is_liked = $article->isLikedByUser($userId);
+    });
+    
+    return view('pages.home', [
+        'recentArticles' => $recentArticles,
+    ]);
 })->name('home');
 
 // Login Route Redirect
@@ -61,16 +81,23 @@ Route::middleware(['auth'])->group(function () {
 
     // Admin Role Update (Only Admin)
     Route::put('/profile/update-role', [UserController::class, 'updateRole'])
-        ->middleware('can:isAdmin')->name('profile.updateRole');// only admin
+        ->middleware('can:isAdmin')->name('profile.updateRole');
+
+    // QnA Actions
+    Route::post('/qna/questions', [QnaController::class, 'storeQuestion'])->name('qna.questions.store');
+    Route::post('/qna/answers', [QnaController::class, 'storeAnswer'])->name('qna.answers.store');
+    Route::post('/qna/upvote/{id}', [QnaController::class, 'upvote'])->name('qna.upvote');
+    Route::delete('/qna/delete/{id}', [QnaController::class, 'destroy'])->name('qna.destroy');
+
+    // Article Like
+    Route::post('/articles/{article}/like', [ArticleController::class, 'toggleLike'])->name('articles.toggleLike');
+    
+    // Create Article
+    Route::post('/profile/articles/add', [ArticleController::class, 'store'])->name('articles.add');
 });
 
+// --- Admin Only Routes ---
 Route::middleware(['auth', 'can:isAdmin'])->group(function () {
     Route::post('/profile/products/add', [ProductController::class, 'store'])
         ->name('products.add');
-});
-
-// Only veterinarians can create articles
-Route::middleware(['auth'])->group(function () {
-    Route::post('/profile/articles/add', [ArticleController::class, 'store'])
-        ->name('articles.add');
 });
