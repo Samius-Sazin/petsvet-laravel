@@ -36,6 +36,9 @@
 
     @include('common.components.footer')
 
+    <!-- Article Modal (reusable across all pages) -->
+    <x-articleModal />
+
     <!-- Global Notification Container -->
     <div id="notificationContainer"
         style="position: fixed; top: 10px; right: 20px; z-index: 2000; display: flex; flex-direction: column; gap: 10px;">

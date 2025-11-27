@@ -53,10 +53,10 @@ class ArticleController extends Controller
             $article->is_liked = $article->isLikedByUser($userId);
         });
 
-        // Get recent articles (latest 4) for the recent articles section
+        // Get recent articles (latest 3) for the recent articles section
         $recentArticles = Article::with('user')
             ->orderBy('created_at', 'desc')
-            ->take(4)
+            ->take(3)
             ->get();
         
         $recentArticles->each(function ($article) use ($userId) {
