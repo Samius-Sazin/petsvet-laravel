@@ -17,23 +17,26 @@ class UserController extends Controller
         $this->cloudinary = $cloudinary;
     }
 
-    public function profile()
-    {
-        $user = auth()->user();
+public function profile()
+{
+    $user = auth()->user(); 
 
-        $roleKey = match ($user->role) {
-            0 => 'admin',
-            1 => 'user',
-            2 => 'veterinary',
-            default => 'user',
-        };
-        $cards = config("roleCards.{$roleKey}", []);
+    $roleKey = match ($user->role) {
+        0 => 'admin',
+        1 => 'user',
+        2 => 'veterinary',
+        default => 'user',
+    };
 
-        $statsService = new ProfileStatsService($user);
-        $counts = $statsService->getCounts();
+    $cards = config("roleCards.{$roleKey}", []);
 
-        return view('pages.profile', compact('user', 'cards', 'counts'));
-    }
+    $statsService = new ProfileStatsService($user);
+    $counts = $statsService->getCounts();
+    
+    $counts['qna'] = $user->questions()->count();
+
+    return view('pages.profile', compact('user', 'cards', 'counts'));
+}
 
     public function updateProfile(Request $request)
     {

@@ -28,8 +28,7 @@
                         href="{{ route('products') }}">Products</a></li>
                 <li class="nav-item"><a class="nav-link {{ request()->routeIs('articles') ? 'active fw-bold' : '' }}"
                         href="{{ route('articles') }}">Articles</a></li>
-                <li class="nav-item"><a class="nav-link {{ request()->routeIs('qna') ? 'active fw-bold' : '' }}"
-                        href="{{ route('qna') }}">Q&A</a></li>
+                <li class="nav-item"><a class="nav-link {{ request()->routeIs('qna*') ? 'active fw-bold' : '' }}"  href="{{ route('qna.index') }}">Q&A</a></li>
                 <li class="nav-item"><a class="nav-link {{ request()->routeIs('community') ? 'active fw-bold' : '' }}"
                         href="{{ route('community') }}">Community</a></li>
                 <li class="nav-item"><a class="nav-link {{ request()->routeIs('about') ? 'active fw-bold' : '' }}"

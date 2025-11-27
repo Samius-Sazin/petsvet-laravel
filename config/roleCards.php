@@ -22,13 +22,14 @@ return [
             'color' => 'primary',
             'route' => 'admin.posts.index',
         ],
+        // UPDATED QNA CARD
         [
             'key' => 'qna',
             'title' => 'All QnA',
             'description' => 'Browse all questions and answers in the community.',
             'icon' => 'fa-solid fa-circle-question',
             'color' => 'success',
-            'route' => 'admin.qna.index',
+            'route' => 'qna.index', // Changed to correct route
         ],
         [
             'key' => 'articles',
@@ -84,13 +85,14 @@ return [
             'color' => 'danger',
             'route' => 'user.products.index',
         ],
+        //  UPDATED QNA CARD
         [
             'key' => 'qna',
             'title' => 'My QnA',
             'description' => 'Your asked questions and given answers.',
             'icon' => 'fa-solid fa-circle-question',
             'color' => 'success',
-            'route' => 'user.qna.index',
+            'route' => 'qna.index', // Changed to correct route
         ],
         [
             'key' => 'reacted_articles',
@@ -138,13 +140,14 @@ return [
             'color' => 'danger',
             'route' => 'vet.products.index',
         ],
+        //  UPDATED QNA CARD
         [
             'key' => 'qna',
             'title' => 'My QnA',
             'description' => 'Your asked questions and answers.',
             'icon' => 'fa-solid fa-circle-question',
             'color' => 'success',
-            'route' => 'vet.qna.index',
+            'route' => 'qna.index', // Changed to correct route
         ],
         [
             'key' => 'answered_qna',
