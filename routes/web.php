@@ -7,9 +7,25 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\FirebaseController;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Article;
 
 Route::get('/', function () {
-    return view('pages.home');
+    // Get recent articles (latest 3) for the recent articles section
+    $recentArticles = Article::with('user')
+        ->orderBy('created_at', 'desc')
+        ->take(3)
+        ->get();
+    
+    $userId = Auth::id();
+    
+    $recentArticles->each(function ($article) use ($userId) {
+        $article->likes_count = $article->getLikesCountAttribute();
+        $article->is_liked = $article->isLikedByUser($userId);
+    });
+    
+    return view('pages.home', [
+        'recentArticles' => $recentArticles,
+    ]);
 })->name('home');
 
 Route::get('/about', function () {

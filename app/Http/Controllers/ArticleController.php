@@ -53,10 +53,10 @@ class ArticleController extends Controller
             $article->is_liked = $article->isLikedByUser($userId);
         });
 
-        // Get recent articles (latest 4) for the recent articles section
+        // Get recent articles (latest 3) for the recent articles section
         $recentArticles = Article::with('user')
             ->orderBy('created_at', 'desc')
-            ->take(4)
+            ->take(3)
             ->get();
         
         $recentArticles->each(function ($article) use ($userId) {
@@ -126,9 +126,9 @@ class ArticleController extends Controller
 
     public function store(Request $request)
     {
-        // Only veterinarians can create articles
-        if (!Auth::check() || Auth::user()->role !== \App\Models\User::ROLE_VET) {
-            return redirect()->back()->with('error', 'Only veterinarians can create articles.');
+        // Only veterinarians and admins can create articles
+        if (!Auth::check() || !in_array(Auth::user()->role, [\App\Models\User::ROLE_VET, \App\Models\User::ROLE_ADMIN])) {
+            return redirect()->back()->with('error', 'Only veterinarians and admins can create articles.');
         }
 
         try {
