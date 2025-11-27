@@ -1,17 +1,15 @@
-@php
-    $articles = include resource_path('views/data/latestArticles.php');
-@endphp
+@props(['recentArticles' => []])
 
-<div class="container my-5">
-    <h1 class="text-center fw-bold mb-5 text-dark">
-        Latest Articles
-    </h1>
+@if (!empty($recentArticles) && $recentArticles->count() > 0)
+    <div class="container my-5">
+        <h2 class="text-center fw-bold mb-5 text-dark fs-1">
+            Recent Articles
+        </h2>
 
-    <div class="row g-4 justify-content-center">
-        @foreach ($articles as $article)
-            <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch">
+        <div class="row g-4">
+            @foreach ($recentArticles as $article)
                 <x-articleCard :article="$article" />
-            </div>
-        @endforeach
+            @endforeach
+        </div>
     </div>
-</div>
+@endif

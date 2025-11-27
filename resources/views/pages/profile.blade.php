@@ -88,8 +88,11 @@
     <!-- Edit Profile Modal (Separate Form) -->
     <x-editProfileModal />
 
-    <!-- Edit Profile Modal (Separate Form) -->
+    <!-- Add Product Modal -->
     <x-addProductModal />
+
+    <!-- Add Article Modal -->
+    <x-addArticleModal />
 
     <style>
         .stats-card {
