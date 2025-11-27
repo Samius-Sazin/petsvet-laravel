@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             ProductsTableSeeder::class,
             UsersTableSeeder::class,
             ArticlesTableSeeder::class,
+            QnaSeeder::class
         ]);
     }
 
