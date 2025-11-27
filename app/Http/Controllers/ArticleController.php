@@ -126,9 +126,9 @@ class ArticleController extends Controller
 
     public function store(Request $request)
     {
-        // Only veterinarians can create articles
-        if (!Auth::check() || Auth::user()->role !== \App\Models\User::ROLE_VET) {
-            return redirect()->back()->with('error', 'Only veterinarians can create articles.');
+        // Only veterinarians and admins can create articles
+        if (!Auth::check() || !in_array(Auth::user()->role, [\App\Models\User::ROLE_VET, \App\Models\User::ROLE_ADMIN])) {
+            return redirect()->back()->with('error', 'Only veterinarians and admins can create articles.');
         }
 
         try {
