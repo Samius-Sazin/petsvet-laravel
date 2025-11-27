@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -15,9 +16,7 @@ Route::get('/about', function () {
     return view('pages.about');
 })->name('about');
 
-Route::get('/articles', function () {
-    return view('pages.articles');
-})->name('articles');
+Route::get('/articles', [ArticleController::class, 'getAllArticles'])->name('articles');
 
 Route::get('/community', function () {
     return view('pages.community');
@@ -60,9 +59,18 @@ Route::middleware(['auth'])->group(function () {
     // update role
     Route::put('/profile/update-role', [UserController::class, 'updateRole'])
         ->middleware('can:isAdmin')->name('profile.updateRole');// only admin
+
+    // Article like/unlike
+    Route::post('/articles/{article}/like', [ArticleController::class, 'toggleLike'])->name('articles.toggleLike');
 });
 
 Route::middleware(['auth', 'can:isAdmin'])->group(function () {
     Route::post('/profile/products/add', [ProductController::class, 'store'])
         ->name('products.add');
+});
+
+// Only veterinarians can create articles
+Route::middleware(['auth'])->group(function () {
+    Route::post('/profile/articles/add', [ArticleController::class, 'store'])
+        ->name('articles.add');
 });

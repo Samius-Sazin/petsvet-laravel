@@ -79,4 +79,27 @@ class CloudinaryService
         return $uploadedImages;
     }
 
+    public function uploadArticleImage($file, $articleTitle, $folder = '/articles'): array
+    {
+        $cloudFolder = "petsvet/{$folder}";
+
+        // Clean article title to use in filename
+        $cleanName = preg_replace('/[^A-Za-z0-9_\-]/', '_', strtolower($articleTitle));
+        $timestamp = time();
+        $publicId = "article_{$cleanName}_{$timestamp}";
+
+        $result = $this->cloudinary->uploadApi()->upload(
+            $file->getRealPath(),
+            [
+                'folder' => $cloudFolder,
+                'public_id' => $publicId,
+            ]
+        );
+
+        return [
+            'url' => $result['secure_url'] ?? null,
+            'public_id' => $result['public_id'] ?? null,
+        ];
+    }
+
 }
