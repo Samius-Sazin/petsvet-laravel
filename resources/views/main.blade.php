@@ -45,12 +45,10 @@
     </div>
 
 
-    // bootstrap script
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
     </script>
 
-    // Firebase Auth and Login/Logout Script
     <script>
         const firebaseConfig = {
             apiKey: "{{ config('app.firebase.api_key') }}",
@@ -112,7 +110,6 @@
         }
     </script>
 
-    // showNotification : Toast Notification Script
     <script>
         /**
          * Show a notification anywhere in the website.
