@@ -9,7 +9,7 @@
 
     @include('components.trendingItems')
 
-    @include('components.latestArticles')
+    <x-latestArticles :recentArticles="$recentArticles ?? []" />
     <div class="text-center mt-5">
         <a href="{{ route('articles') }}" class="btn btn-primary">Show more articles</a>
     </div>

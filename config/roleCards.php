@@ -173,6 +173,14 @@ return [
             'color' => 'success',
             'route' => 'vet.qna.reacted',
         ],
+        [
+            'key' => 'articles',
+            'title' => 'My Articles',
+            'description' => 'View and manage all articles you have created.',
+            'icon' => 'fa-solid fa-newspaper',
+            'color' => 'info',
+            'route' => 'vet.articles.index',
+        ],
     ],
 
 ];

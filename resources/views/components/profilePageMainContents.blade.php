@@ -53,6 +53,14 @@
                                 <i class="fa-solid fa-pen me-1"></i> Add Product
                             </button>
                         @endif
+
+                        <!-- Add article button - Only for veterinarians (role = 2) and admins (role = 0) -->
+                        @if (($user->role === 2 || $user->role === 0) && $card['key'] === 'articles')
+                            <button type="button" class="ms-4 btn btn-outline-{{ $card['color'] }} btn-sm px-4 py-2 fs-5"
+                                data-bs-toggle="modal" data-bs-target="#addArticleModal">
+                                <i class="fa-solid fa-pen me-1"></i> Add Article
+                            </button>
+                        @endif
                     </div>
 
                 </div>
