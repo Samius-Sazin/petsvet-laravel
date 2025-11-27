@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\FirebaseController;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Article;
-// 👇 এই লাইনটি মিসিং ছিল, এটা ছাড়া QnA পেজ চলবে না
 use App\Http\Controllers\QnaController;
 
 // --- Public Routes ---
