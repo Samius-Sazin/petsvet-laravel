@@ -1,14 +1,7 @@
-Here’s a polished and enhanced version of your README file. I’ve organized it, added headings, clarified instructions, and included extra details for clarity:
-
----
-
 # PetsVet Laravel Project
-
 ## Project Overview
 
-PetsVet is a Laravel-based web application for managing pet-related services. This project uses Laravel 10, PHP, MySQL, and modern frontend tooling (Vite, Tailwind CSS).
-
----
+PetsVet is a Laravel-based web application for managing pet-related services. This project uses Laravel 10, PHP, MySQL, and modern frontend tooling (Vite, Bootstrap).
 
 ## Prerequisites
 
