@@ -4,11 +4,13 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\FirebaseController;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Article;
 use App\Http\Controllers\QnaController;
+
 
 // --- Public Routes ---
 
@@ -46,7 +48,7 @@ Route::get('/about', function () {
 
 Route::get('/articles', [ArticleController::class, 'getAllArticles'])->name('articles');
 
-Route::get('/community', [\App\Http\Controllers\PostController::class, 'index'])->name('community');
+Route::get('/community', [PostController::class, 'index'])->name('community');
 
 Route::get('/consultancy', function () {
     return view('pages.consultancy');
@@ -94,13 +96,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/articles/{article}/like', [ArticleController::class, 'toggleLike'])->name('articles.toggleLike');
     
     // Create Community Post
-    Route::post('/posts', [\App\Http\Controllers\PostController::class, 'store'])->name('posts.store');
+    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 
     // Like/Unlike a Post
-    Route::post('/posts/{postId}/like', [\App\Http\Controllers\PostController::class, 'toggleLike'])->name('posts.toggleLike');
+    Route::post('/posts/{postId}/like', [PostController::class, 'toggleLike'])->name('posts.toggleLike');
 
     // Store a comment on a Post
-    Route::post('/posts/{postId}/comments', [\App\Http\Controllers\PostController::class, 'storeComment'])->name('posts.comments.store');
+    Route::post('/posts/{postId}/comments', [PostController::class, 'storeComment'])->name('posts.comments.store');
 
     // Create Article
     Route::post('/profile/articles/add', [ArticleController::class, 'store'])->name('articles.add');
