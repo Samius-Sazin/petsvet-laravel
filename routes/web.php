@@ -30,6 +30,10 @@ Route::get('/', function () {
         'recentArticles' => $recentArticles,
     ]);
 })->name('home');
+// Register Route Redirect
+Route::get('/register', function () {
+    return redirect()->route('home');
+    })->name('register');
 
 // Login Route Redirect
 Route::get('/login', function () {

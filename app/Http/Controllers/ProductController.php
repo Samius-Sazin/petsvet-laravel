@@ -78,6 +78,7 @@ class ProductController extends Controller
         return view('pages.productDetails', compact('product'));
     }
 
+    // Store new product to DB
     public function store(Request $request)
     {
         try {
