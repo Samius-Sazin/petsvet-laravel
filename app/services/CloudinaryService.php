@@ -102,4 +102,23 @@ class CloudinaryService
         ];
     }
 
+    public function uploadPostImage($file, $userId, $folder = '/posts'): array
+    {
+        $cloudFolder = "petsvet/{$folder}";
+        $publicId = "post_{$userId}_" . time();
+
+        $result = $this->cloudinary->uploadApi()->upload(
+            $file->getRealPath(),
+            [
+                'folder' => $cloudFolder,
+                'public_id' => $publicId,
+            ]
+        );
+
+        return [
+            'url' => $result['secure_url'] ?? null,
+            'public_id' => $result['public_id'] ?? null,
+        ];
+    }
+
 }

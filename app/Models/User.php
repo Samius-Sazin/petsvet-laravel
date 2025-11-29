@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany; 
+use App\Models\PostComment;
 
 /**
  * @property int $id
@@ -87,5 +88,13 @@ class User extends Authenticatable
     public function answers(): HasMany
     {
         return $this->hasMany(QnaAnswer::class);
+    }
+
+    /**
+     * A user can write many comments on posts
+     */
+    public function postComments(): HasMany
+    {
+        return $this->hasMany(PostComment::class);
     }
 }

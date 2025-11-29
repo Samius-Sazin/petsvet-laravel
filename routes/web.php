@@ -46,9 +46,7 @@ Route::get('/about', function () {
 
 Route::get('/articles', [ArticleController::class, 'getAllArticles'])->name('articles');
 
-Route::get('/community', function () {
-    return view('pages.community');
-})->name('community');
+Route::get('/community', [\App\Http\Controllers\PostController::class, 'index'])->name('community');
 
 Route::get('/consultancy', function () {
     return view('pages.consultancy');
@@ -95,6 +93,15 @@ Route::middleware(['auth'])->group(function () {
     // Article Like
     Route::post('/articles/{article}/like', [ArticleController::class, 'toggleLike'])->name('articles.toggleLike');
     
+    // Create Community Post
+    Route::post('/posts', [\App\Http\Controllers\PostController::class, 'store'])->name('posts.store');
+
+    // Like/Unlike a Post
+    Route::post('/posts/{postId}/like', [\App\Http\Controllers\PostController::class, 'toggleLike'])->name('posts.toggleLike');
+
+    // Store a comment on a Post
+    Route::post('/posts/{postId}/comments', [\App\Http\Controllers\PostController::class, 'storeComment'])->name('posts.comments.store');
+
     // Create Article
     Route::post('/profile/articles/add', [ArticleController::class, 'store'])->name('articles.add');
 });
