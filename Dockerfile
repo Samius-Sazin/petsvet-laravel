@@ -42,7 +42,7 @@ RUN apt-get update && apt-get install -y \
     git unzip libpng-dev libonig-dev libxml2-dev zip curl libzip-dev libpq-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install PHP extensions required by Laravel
+# Install PHP extensions
 RUN docker-php-ext-install pdo pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd zip
 
 # Install Composer
@@ -54,9 +54,6 @@ WORKDIR /var/www/html
 # Copy project files
 COPY . .
 
-# Copy env for build
-COPY .env.example .env
-
 # Install Laravel dependencies
 RUN composer install --no-dev --optimize-autoloader
 
@@ -65,16 +62,8 @@ RUN mkdir -p storage/framework/{cache,sessions,views} storage/logs bootstrap/cac
     && chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
-# Clear and cache Laravel config, routes, views
-RUN php artisan config:clear \
-    && php artisan cache:clear \
-    && php artisan view:clear \
-    && php artisan config:cache \
-    && php artisan route:cache \
-    && php artisan view:cache
-
 # Expose PHP-FPM port
 EXPOSE 9000
 
-# Run migrations and seeders, then start PHP-FPM
+# Run migrations, seeders, and then PHP-FPM at container startup
 CMD php artisan migrate --force && php artisan db:seed --force && php-fpm
