@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class ArticlesTableSeeder extends Seeder
+class PostCommentsTableSeeder extends Seeder
 {
 
     /**
@@ -16,7 +16,7 @@ class ArticlesTableSeeder extends Seeder
     {
         
 
-        \DB::table('articles')->delete();
+        \DB::table('post_comments')->delete();
         
         
         

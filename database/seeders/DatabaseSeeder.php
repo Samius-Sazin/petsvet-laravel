@@ -14,11 +14,18 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            ProductsTableSeeder::class,
-            UsersTableSeeder::class,
-            ArticlesTableSeeder::class,
-            QnaSeeder::class
+            
         ]);
+        $this->call(PostCommentsTableSeeder::class);
+        $this->call(PostLikesTableSeeder::class);
+        $this->call(QnaQuestionsTableSeeder::class);
+        $this->call(QnaCategoriesTableSeeder::class);
+        $this->call(QnaAnswersTableSeeder::class);
+        $this->call(ArticlesTableSeeder::class);
+        $this->call(ArticleLikesTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
+        $this->call(ProductsTableSeeder::class);
+        $this->call(PostsTableSeeder::class);
     }
 
 }

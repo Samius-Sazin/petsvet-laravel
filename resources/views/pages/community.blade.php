@@ -40,7 +40,7 @@
                 {{-- HERO SECTION --}}
                 <div class="text-center py-4 mb-5 rounded-4"
                     style="background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); border-bottom: 4px solid #0d6efd;">
-                    <h1 class="display-6 fw-bold text-dark mb-2">Where Every Pet Has a Story 🐾</h1>
+                    <h1 class="display-6 fw-bold text-dark mb-2">Share your pet's story with us 🐾</h1>
                     <p class="text-muted mx-auto col-10 mb-0" style="font-size: 1.1rem;">
                         Connect, share, and celebrate the moments that make pet parenting special.
                     </p>

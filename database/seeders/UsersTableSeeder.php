@@ -32,8 +32,8 @@ class UsersTableSeeder extends Seeder
                 'password' => '$2y$12$mp3HbA5lT4O93gk13A29.OQM0smjgnU/T.Q1vh2HGF3r7ia2xBRnG',
                 'remember_token' => NULL,
                 'created_at' => '2025-11-24 09:46:08',
-                'updated_at' => '2025-11-24 18:46:27',
-                'role' => 2,
+                'updated_at' => '2025-11-28 20:45:23',
+                'role' => 1,
             ),
             1 => 
             array (
