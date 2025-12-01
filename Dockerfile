@@ -63,7 +63,7 @@ RUN mkdir -p storage/framework/{cache,sessions,views} storage/logs bootstrap/cac
     && chmod -R 775 storage bootstrap/cache
 
 # Expose PHP-FPM port
-EXPOSE 9000
+EXPOSE 8000
 
 # Run migrations, seeders, and then PHP-FPM at container startup
-CMD php artisan migrate --force && php artisan db:seed --force && php-fpm
+CMD php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=8000
