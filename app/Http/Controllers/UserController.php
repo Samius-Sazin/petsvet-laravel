@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Post;
 use App\Services\CloudinaryService;
 use App\Services\ProfileStatsService;
 use Illuminate\Http\Request;
