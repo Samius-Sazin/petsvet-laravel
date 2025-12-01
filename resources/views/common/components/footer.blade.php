@@ -76,7 +76,7 @@
         <hr class="border-dark mt-4">
 
         <p class="text-center mt-2 mb-0 fs-5">
-            All rights reserved by PetsVet. © 2024
+            All rights reserved by PetsVet. © 2025
         </p>
     </div>
 </footer>
