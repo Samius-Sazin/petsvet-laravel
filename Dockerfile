@@ -20,8 +20,9 @@ COPY . .
 # Install Laravel dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Set permissions for storage and cache
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+# Ensure storage and cache directories exist and set permissions
+RUN mkdir -p storage/framework storage/logs bootstrap/cache \
+    && chown -R www-data:www-data storage bootstrap/cache
 
 # Expose port 8000
 EXPOSE 8000
