@@ -54,6 +54,9 @@ WORKDIR /var/www/html
 # Copy project files
 COPY . .
 
+# Copy env for build
+COPY .env.example .env
+
 # Install Laravel dependencies
 RUN composer install --no-dev --optimize-autoloader
 
