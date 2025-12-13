@@ -17,13 +17,14 @@ class FirebaseController extends Controller
         $user = User::where('email', $data['email'])->first();
 
         if ($user) {
-            // Existing user: update only name & photo (NOT role)
-            $user->update([
-                'name' => $data['name'],
-                'photo' => $data['photo'],
-            ]);
+            // Existing user: preserve their name and photo from DB
+            // Only update photo if user has never uploaded one (no photo_public_id)
+            if (empty($user->photo_public_id)) {
+                $user->update(['photo' => $data['photo']]);
+            }
+            // Do NOT update name or photo if they exist in DB
         } else {
-            // New user: create with default role USER
+            // New user: create with Google data (name & photo)
             $user = User::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
